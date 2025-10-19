@@ -3,6 +3,9 @@ const MoodPeopleGlasses = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     xmlSpace="preserve"
+    viewBox="0 0 1466 1238"
+    width="100%"
+    height="auto"
     style={{
       fillRule: "evenodd",
       clipRule: "evenodd",
@@ -10,7 +13,6 @@ const MoodPeopleGlasses = (props: React.SVGProps<SVGSVGElement>) => (
       strokeLinejoin: "round",
       strokeMiterlimit: 1.5,
     }}
-    viewBox="0 0 1466 1238"
     {...props}
   >
     <path
