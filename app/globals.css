@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 
+
 /* In globals.css */
 .font-no-name-regular {
   font-family: var(--font-no-name-regular);
@@ -25,4 +26,8 @@
 
 .text-dark-blue {
   color: #254C5C
+}
+
+@theme {
+  --breakpoint-xs: 460px;
 }
