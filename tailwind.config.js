@@ -16,8 +16,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        nonamreg: ['var(--font-no-name-regular)'],
-        opensanssemibold: ['var(--font-open-sans-semibold)'],
+        // nonamreg: ['var(--font-no-name-regular)'],
+        // opensanssemibold: ['var(--font-open-sans-semibold)'],
+        // opensansreg: ['var(--font-open-sans-regular)'],
       }
     },
   },

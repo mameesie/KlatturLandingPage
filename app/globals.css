@@ -2,6 +2,9 @@
 
 
 
+
+
+
 /* In globals.css */
 .font-no-name-regular {
   font-family: var(--font-no-name-regular);
@@ -11,6 +14,9 @@
   font-family: var(--font-open-sans-semibold);
 }
 
+.font-open-sans-regular {
+  font-family: var(--font-open-sans-regular);
+}
 
 /* colors */
 .bg-tan {
@@ -28,6 +34,52 @@
   color: #254C5C
 }
 
+.volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 80px;   /* length of slider */
+  height: 4px;   /* thickness */
+  
+}
+
+/* TRACK */
+.volume-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+}
+
+.volume-slider::-moz-range-track {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+}
+
+/* THUMB */
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -4px;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+
 @theme {
+  --breakpoint-lxl: 1380px;
   --breakpoint-xs: 460px;
+  --breakpoint-xxs: 386px;
+  --breakpoint-xxxs: 350px;
 }
