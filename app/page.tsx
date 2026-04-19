@@ -29,7 +29,7 @@ function page() {
           <div className="ml-[8vw] sm:ml-[4vw]  my-[8vw] sm:my-[4vw] ">
             <BuzzMagnifier className="w-[100px] sm:w-[16.5vw] xl:w-[210px] "/>
           </div>
-          <p className="font-open-sans-regular text-white mr-[8vw] sm:mr-[5.36vw] my-[8vw] sm:my-[3vw] ml-[5.36vw] sm:ml-[4vw] text-[16px] sm:text-[2.5vw] xl:text-[34px]">Klattur helpt je je gedachten te checken en te ontdekken wat die met je doen. Wetenschappelijk onderbouwd.</p>
+          <p className="font-open-sans-regular text-white mr-[8vw] sm:mr-[5.36vw] my-[8vw] sm:my-[3vw] ml-[5.36vw] sm:ml-[4vw] text-[16px] sm:text-[19px] md:text-[22px] lg:text-[26px] xl:text-[34px]">Klattur helpt je je gedachten te checken en te ontdekken wat die met je doen. Wetenschappelijk onderbouwd.</p>
         </div>
       </div>
     </div>
