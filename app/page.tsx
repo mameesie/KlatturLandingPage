@@ -7,29 +7,32 @@ import BuzzMagnifier from "@/public/BuzzMagnifier";
 function page() {
   return (
     <div className=" ">
-      <p className=" text-[6vw] md:text-[4vw] mt-[10vw] md:mt-[7vw] lg:mt-[4.5vw] text-center text-white font-no-name-regular">
+      <p className=" text-[max(6vw,28px)] lxl:text-[57px] md:text-[4vw] mt-[max(11.2vw,47px)] md:mt-[6.5vw] lxl:mt-[90px] leading-[max(7.9vw,35px)] md:leading-normal text-center text-white font-no-name-regular">
         Minder mind clutter,<br className="md:hidden" />  meer rust in je hoofd
       </p>
-      <p className=" text-[3vw] md:text-[2.1vw] mb-[7vw] md:mb-[5.5vw] lg:mb-[2.8vw] lg:mt-[-1vw] text-center text-white font-open-sans-regular">
-        Tien minuten. Eén gedachten
+      <p className=" text-[max(3.2vw,16px)] md:text-[2.1vw] lxl:text-[29px] mb-[max(7vw,28.5px)] md:mb-[4vw] lxl:mb-[55px] mt-[max(2.6vw,9px)] md:mt-[-.5vw] lxl:mt-[-6.9px] text-center text-white font-open-sans-regular">
+        Tien minuten. Eén gedachte
       </p>
-      <div className="mx-[8vw] lg:w-[850px] lg:mx-auto lg:flex lg:justify-center">
+      <div className="mx-[8vw] vimeo:w-[750px] vimeo:mx-auto vimeo:flex vimeo:justify-center">
         <div className="w-full aspect-video">
           <VimeoAnimation />
         </div>
       </div>
       {/* <button ></button> */}
       <div className="flex justify-center">
-        <a href="/sessie" className="bg-[#9ACC8F] font-no-name-regular text-[#56710C] flex items-center justify-center rounded-[2000px] w-[50vw] lg:w-[450px] h-[12.5vw] lg:h-[112.5px]  text-[4vw] lg:text-[36px] mt-[7vw] lg:mt-[57px]">
+        <a href="/sessie" className="bg-[#9ACC8F] font-no-name-regular text-[#56710C] flex items-center justify-center rounded-[2000px] w-[50vw] min-w-[200px] max-w-[280px] h-[12.5vw] min-h-[50px] max-h-[75px]  text-[min(max(4vw,16px),24px)]  my-[max(7.7vw,31px)] vimeo:my-[57px]">
           Probeer het zelf
         </a>
       </div>
-      <div className="bg-[#56710C] rounded-[8vw] md:rounded-[72.8px] mx-[8vw] lxl:w-[1215px] lxl:mx-auto lxl:flex lxl:justify-center mt-[7vw] lg:mt-[57px]">
+      <div className="bg-[#56710C] rounded-[35px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto lxl:flex lxl:justify-center">
         <div className="w-full flex justify-between items-center ">
-          <div className="ml-[8vw] sm:ml-[4vw]  my-[8vw] sm:my-[4vw] ">
-            <BuzzMagnifier className="w-[100px] sm:w-[16.5vw] xl:w-[210px] "/>
+          <div className="ml-[65px] mt-[39px] mb-[32px]">
+            <BuzzMagnifier className="w-[120px] "/>
           </div>
-          <p className="font-open-sans-regular text-white mr-[8vw] sm:mr-[5.36vw] my-[8vw] sm:my-[3vw] ml-[5.36vw] sm:ml-[4vw] text-[16px] sm:text-[19px] md:text-[22px] lg:text-[26px] xl:text-[34px]">Klattur helpt je je gedachten te checken en te ontdekken wat die met je doen. Wetenschappelijk onderbouwd.</p>
+          <div className="my-[35px]">
+            <p className="font-no-name-regular  text-white   mx-[51px]  text-[23px]  ">Hoe werkt het?</p>
+            <p className="font-open-sans-regular text-white mx-[51px] text-[16px] leading-[32px]  ">Neem een gedachte die je dwars zit. Klattur bevraagt deze gedachte stap voor stap, met audio, in je eigen tempo. Je onderzoekt wat die gedachte met je doet. En vooral, wat er overblijft als je hem checkt.</p>
+          </div>
         </div>
       </div>
     </div>
