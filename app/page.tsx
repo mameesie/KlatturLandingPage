@@ -3,11 +3,12 @@ import MoodPeopleGlasses from "@/public/MoodPeopleGlasses";
 import React from "react";
 import VimeoAnimation from "./components/VimeoAnimation";
 import BuzzMagnifier from "@/public/BuzzMagnifier";
+ import ScienceGroup from "@/public/ScienceGroup";
 
 function page() {
   return (
     <div className=" ">
-      <p className=" text-[max(6vw,28px)] lxl:text-[57px] md:text-[4vw] mt-[max(11.2vw,47px)] md:mt-[6.5vw] lxl:mt-[90px] leading-[max(7.9vw,35px)] md:leading-normal text-center text-white font-no-name-regular">
+      <p className="font-semibold text-[max(6vw,28px)] lxl:text-[57px] md:text-[4vw] mt-[max(11.2vw,47px)] md:mt-[6.5vw] lxl:mt-[90px] leading-[max(7.9vw,35px)] md:leading-normal text-center text-white font-no-name-regular">
         Minder mind clutter,<br className="md:hidden" />  meer rust in je hoofd
       </p>
       <p className=" text-[max(3.2vw,16px)] md:text-[2.1vw] lxl:text-[29px] mb-[max(7vw,28.5px)] md:mb-[4vw] lxl:mb-[55px] mt-[max(2.6vw,9px)] md:mt-[-.5vw] lxl:mt-[-6.9px] text-center text-white font-open-sans-regular">
@@ -18,20 +19,48 @@ function page() {
           <VimeoAnimation />
         </div>
       </div>
-      {/* <button ></button> */}
+      
       <div className="flex justify-center">
         <a href="/sessie" className="bg-[#9ACC8F] font-no-name-regular text-[#56710C] flex items-center justify-center rounded-[2000px] w-[50vw] min-w-[200px] max-w-[280px] h-[12.5vw] min-h-[50px] max-h-[75px]  text-[min(max(4vw,16px),24px)]  my-[max(7.7vw,31px)] vimeo:my-[57px]">
           Probeer het zelf
         </a>
       </div>
+      
       <div className="bg-[#56710C] rounded-[35px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto lxl:flex lxl:justify-center">
-        <div className="w-full flex justify-between items-center ">
-          <div className="ml-[65px] mt-[39px] mb-[32px]">
-            <BuzzMagnifier className="w-[120px] "/>
+        <div className="w-full flex flex-col sm:flex-row justify-between items-center ">
+          <div className="sm:ml-[65px] mt-[50px] sm:mt-[39px] sm:mb-[32px]">
+            <BuzzMagnifier className="w-[85px] sm:w-[120px] "/>
           </div>
-          <div className="my-[35px]">
-            <p className="font-no-name-regular  text-white   mx-[51px]  text-[23px]  ">Hoe werkt het?</p>
-            <p className="font-open-sans-regular text-white mx-[51px] text-[16px] leading-[32px]  ">Neem een gedachte die je dwars zit. Klattur bevraagt deze gedachte stap voor stap, met audio, in je eigen tempo. Je onderzoekt wat die gedachte met je doet. En vooral, wat er overblijft als je hem checkt.</p>
+          <div className="mt-[12px] mb-[45px] sm:my-[35px]">
+            <p className="font-no-name-regular  text-white  mx-[40px] sm:mx-[51px] text-[20px] sm:text-[23px]  ">Hoe werkt het?</p>
+            <p className="font-open-sans-regular text-white mx-[40px] sm:mx-[51px] text-[16px] leading-[29px] sm:leading-[32px]  ">Neem een gedachte die je dwars zit. Klattur bevraagt deze gedachte stap voor stap, met audio, in je eigen tempo. Je onderzoekt wat die gedachte met je doet. En vooral, wat er overblijft als je hem checkt.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="bg-[#56710C] rounded-[35px] mt-[50px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto lxl:flex lxl:justify-center">
+        <div className="w-full flex flex-col sm:flex-row justify-between items-center ">
+          <div className="sm:ml-[65px] mt-[50px] sm:mt-[39px] sm:mb-[32px]">
+            <ScienceGroup className="w-[100px] sm:w-[120px] "/>
+          </div>
+          <div className="mt-[12px] mb-[45px] sm:my-[35px]">
+            <p className="font-no-name-regular  text-white  mx-[40px] sm:mx-[51px] text-[20px] sm:text-[23px]  ">Wetenschappelijk onderbouwd</p>
+            <p className="font-open-sans-regular text-white mx-[40px] sm:mx-[51px] text-[16px] leading-[29px] sm:leading-[32px]  ">Uit klinisch onderzoek onder bijna 200 deelnemers bleek dat mensen na het werken met deze aanpak zich significant minder angstig, somberder en bozer voelen en dat dit effect zes maanden later nog steeds meetbaar was. In een tweede studie met controlegroep namen burn-outklachten significant af bij de groep die de methode volgde. Kort gezegd: het werkt. En veel mensen merken al na één sessie verschil.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div className="bg-[#99CC8F] rounded-[35px] mt-[50px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto lxl:flex lxl:justify-center">
+        <p className="font-no-name-regular text-center text-[#56710C] text-[25px] sm:text-[23px] pt-[38px] ">Waar zit jij mee?</p>
+        <div className="w-full flex flex-col sm:flex-row justify-between items-center ">
+          <div className="flex flex-col items-center">
+            <div className="bg-white rounded-[20px] sm:ml-[65px]">
+              <ScienceGroup className="w-[100px] sm:w-[120px] "/>
+            </div>
+            <div className="mt-[12px] mb-[45px] sm:my-[35px]">
+              <p className="font-no-name-regular  text-[#56710C]  mx-[40px] sm:mx-[51px] text-[20px] sm:text-[23px]  ">Studie en school</p>
+              <p className="font-open-sans-regular text-white mx-[40px] sm:mx-[51px] text-[16px] leading-[29px] sm:leading-[32px]">Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen.</p>
+            </div>
           </div>
         </div>
       </div>

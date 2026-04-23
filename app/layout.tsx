@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const no_name_reg = localFont({
   src: "../public/fonts/no_name_37_Regular.otf",
@@ -35,8 +36,9 @@ export default function RootLayout({
       >
         <div className="h-screen flex flex-col">
         <Header></Header>
-        <main className="flex-1 overflow-auto bg-[#85A425]">
+        <main className="flex-1 overflow-auto bg-[#85A425] flex flex-col">
           {children}  
+          <Footer/>
         </main>
       </div>
       </body>

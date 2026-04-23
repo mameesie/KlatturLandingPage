@@ -16,6 +16,24 @@ export default function VimeoAnimation() {
   const [showControls, setShowControls] = useState(false)
 
   const durationRef = useRef(0)
+  const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Start/reset the auto-hide countdown
+  const resetHideTimer = () => {
+    if (hideTimerRef.current) clearTimeout(hideTimerRef.current)
+    setShowControls(true)
+    hideTimerRef.current = setTimeout(() => {
+      setShowControls(false)
+      setShowVolumeSlider(false)
+    }, 3000)
+  }
+
+  // Clean up timer on unmount
+  useEffect(() => {
+    return () => {
+      if (hideTimerRef.current) clearTimeout(hideTimerRef.current)
+    }
+  }, [])
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60).toString().padStart(2, '0')
@@ -62,19 +80,60 @@ export default function VimeoAnimation() {
       await playerRef.current.setVolume(volume)
       await playerRef.current.play()
     }
+    resetHideTimer()
   }
 
-  const handleSeek = async (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!playerRef.current) return
-    const rect = e.currentTarget.getBoundingClientRect()
-    const percent = (e.clientX - rect.left) / rect.width
+  const progressBarRef = useRef<HTMLDivElement | null>(null)
+  const isDraggingRef = useRef(false)
+
+  const seekToPosition = async (clientX: number) => {
+    if (!playerRef.current || !progressBarRef.current) return
+    const rect = progressBarRef.current.getBoundingClientRect()
+    const percent = Math.min(1, Math.max(0, (clientX - rect.left) / rect.width))
+    if (progressBarFillRef.current) {
+      progressBarFillRef.current.style.width = `${percent * 100}%`
+    }
     await playerRef.current.setCurrentTime(percent * durationRef.current)
+    resetHideTimer()
+  }
+
+  const handleSeekMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    isDraggingRef.current = true
+    seekToPosition(e.clientX)
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (isDraggingRef.current) seekToPosition(e.clientX)
+    }
+    const onMouseUp = () => {
+      isDraggingRef.current = false
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', onMouseUp)
+    }
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onMouseUp)
+  }
+
+  const handleSeekTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    isDraggingRef.current = true
+    seekToPosition(e.touches[0].clientX)
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (isDraggingRef.current) seekToPosition(e.touches[0].clientX)
+    }
+    const onTouchEnd = () => {
+      isDraggingRef.current = false
+      window.removeEventListener('touchmove', onTouchMove)
+      window.removeEventListener('touchend', onTouchEnd)
+    }
+    window.addEventListener('touchmove', onTouchMove)
+    window.addEventListener('touchend', onTouchEnd)
   }
 
   const handleVolume = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const v = Number(e.target.value)
     setVolume(v)
     await playerRef.current?.setVolume(v)
+    resetHideTimer()
   }
 
   const handleFullscreen = () => {
@@ -101,13 +160,16 @@ export default function VimeoAnimation() {
 
   return (
     <div
-      className="relative rounded-[8vw] md:rounded-[72.8px] overflow-hidden"
+      className="relative rounded-[35px] overflow-hidden"
       style={{ paddingTop: '56.25%' }}
-      onMouseEnter={() => setShowControls(true)}
+      onMouseEnter={resetHideTimer}
+      onMouseMove={resetHideTimer}
       onMouseLeave={() => {
+        if (hideTimerRef.current) clearTimeout(hideTimerRef.current)
         setShowControls(false)
         setShowVolumeSlider(false)
       }}
+      onTouchStart={resetHideTimer}
     >
       {/* iframe — always receives pointer events so Vimeo error buttons work */}
       <iframe
@@ -181,15 +243,21 @@ export default function VimeoAnimation() {
 
             {/* Progress bar */}
             <div
-              onClick={handleSeek}
-              className="flex-1 h-[3px] bg-white/30 cursor-pointer rounded-sm"
+              ref={progressBarRef}
+              onMouseDown={handleSeekMouseDown}
+              onTouchStart={handleSeekTouchStart}
+              className="flex-1 h-[3px] bg-white/30 cursor-pointer rounded-sm relative"
+              style={{ touchAction: 'none' }}
             >
-              <div ref={progressBarFillRef} className="w-0 h-full bg-white rounded-sm" />
+              <div ref={progressBarFillRef} className="w-0 h-full bg-white rounded-sm relative">
+                {/* Drag handle */}
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-md -mr-1.5" />
+              </div>
             </div>
 
             {/* Volume icon */}
             <button
-              onClick={() => setShowVolumeSlider(v => !v)}
+              onClick={() => { setShowVolumeSlider(v => !v); resetHideTimer() }}
               className="bg-transparent border-none text-white cursor-pointer p-0.5 flex items-center justify-center"
             >
               <VolumeIcon />
