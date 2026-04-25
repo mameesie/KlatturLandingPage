@@ -1,14 +1,77 @@
 "use client";
 import MoodPeopleGlasses from "@/public/MoodPeopleGlasses";
-import React from "react";
+import React, { useEffect } from "react";
 import VimeoAnimation from "./components/VimeoAnimation";
 import BuzzMagnifier from "@/public/BuzzMagnifier";
  import ScienceGroup from "@/public/ScienceGroup";
+import StudyMan from "@/public/StudyMan";
+import WaarZitJeMeeCard from "./components/WaarZitJeMeeCard";
+import HeartMan from "@/public/HeartMan";
+import gsap from "gsap";
+import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
+import WorkMan from "@/public/WorkMan";
+import SomethingElseMan from "@/public/SomthingElseMan";
+import YourselfMan from "@/public/YourselfMan";
 
-function page() {
+function MainPage() {
+
+  useEffect(() => {
+    gsap.registerPlugin(MorphSVGPlugin)
+  const tl = gsap.timeline({
+    repeat: -1,
+  });
+
+  // 3 morph cycles (A ↔ B)
+  // tl.to("#heart", {
+  //   duration: 0.8,
+  //   morphSVG: "#heart2",
+  //   ease: "power2.inOut",
+  //   repeat: 5,
+  //   yoyo: true,
+  // })
+    tl.to("#heart", {
+    duration: 0.8,
+    
+    scale: 0.075,
+    repeat: 0,
+    transformOrigin: "center center "
+  })
+
+
+ tl.to("#heart", {
+    duration: 0.8,
+    
+    scale: 0.06,
+    repeat: 0,
+    transformOrigin: "center center "
+  })
+.add(gsap.delayedCall(0.3, () => {}))
+  // shrink
+  .to("#heart", {
+    duration: 1.0,
+    scale: 0.0010,
+    transformOrigin: "bottom center ",
+  })
+.add(gsap.delayedCall(0.6, () => {}))
+  // reset
+  .set("#heart", {
+    morphSVG: "#heart", // IMPORTANT: this must exist as original path state
+    scale: 1,
+  });
+
+   gsap.to("#workman-briefcase", {
+    rotation: 10,
+    transformOrigin: "0% 0%",
+    duration: 0.5,
+    ease: "power1.inOut",
+    yoyo: true,
+    repeat: -1,
+  });
+
+}, []);
   return (
     <div className=" ">
-      <p className="text-[max(6vw,28px)] lxl:text-[57px] md:text-[4vw] mt-[max(11.2vw,47px)] md:mt-[6.5vw] lxl:mt-[90px] leading-[max(7.9vw,35px)] md:leading-normal text-center text-white font-no-name-regular">
+      {/* <p className="text-[max(6vw,28px)] lxl:text-[57px] md:text-[4vw] mt-[max(11.2vw,47px)] md:mt-[6.5vw] lxl:mt-[90px] leading-[max(7.9vw,35px)] md:leading-normal text-center text-white font-no-name-regular">
         Minder mind clutter,<br className="md:hidden" />  meer rust in je hoofd
       </p>
       <p className=" text-[max(3.2vw,16px)] md:text-[2.1vw] lxl:text-[29px] mb-[max(7vw,28.5px)] md:mb-[4vw] lxl:mb-[55px] mt-[max(2.6vw,9px)] md:mt-[-.5vw] lxl:mt-[-6.9px] text-center text-white font-open-sans-regular">
@@ -48,20 +111,18 @@ function page() {
             <p className="font-open-sans-regular text-white mx-[40px] sm:mx-[51px] text-[16px] leading-[26px] sm:leading-[29px]  ">Uit klinisch onderzoek onder bijna 200 deelnemers bleek dat mensen na het werken met deze aanpak zich significant minder angstig, somberder en bozer voelen en dat dit effect zes maanden later nog steeds meetbaar was. In een tweede studie met controlegroep namen burn-outklachten significant af bij de groep die de methode volgde. Kort gezegd: het werkt. En veel mensen merken al na één sessie verschil.</p>
           </div>
         </div>
-      </div>
+      </div> */}
       
-      <div className="bg-[#99CC8F] rounded-[35px] mt-[80px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto lxl:flex lxl:justify-center">
-        <p className="font-no-name-regular text-center text-[#56710C] text-[25px] sm:text-[23px] pt-[38px] ">Waar zit jij mee?</p>
-        <div className="w-full flex flex-col sm:flex-row justify-between items-center ">
-          <div className="flex flex-col items-center">
-            <div className="bg-white rounded-[20px] sm:ml-[65px]">
-              <ScienceGroup className="w-[100px] sm:w-[120px] "/>
-            </div>
-            <div className="mt-[12px] mb-[45px] sm:my-[45px]">
-              <p className="font-no-name-regular  text-[#56710C]  mx-[40px] sm:mx-[51px] text-[20px] sm:text-[23px]  ">Studie en school</p>
-              <p className="font-open-sans-regular text-white mx-[40px] sm:mx-[51px] text-[16px] leading-[26px] sm:leading-[29px]">Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen.</p>
-            </div>
-          </div>
+      <div className="bg-[#99CC8F] rounded-[35px] mt-[80px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto flex flex-col lxl:justify-center">
+        <p className="font-no-name-regular text-center text-[#56710C] text-[25px] sm:text-[23px] pt-[38px] pb-[20px] ">Waar zit jij mee?</p>
+        <div className="w-full ">
+          
+          <WaarZitJeMeeCard illustration={StudyMan} title="Studie en school" description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."/>
+          <WaarZitJeMeeCard illustration={HeartMan} title="Gezondheid" description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."/>
+          <WaarZitJeMeeCard illustration={WorkMan} title="Werk" description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."/>
+          <WaarZitJeMeeCard illustration={SomethingElseMan} title="Werk" description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."/>
+          <WaarZitJeMeeCard illustration={YourselfMan} title="Werk" description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."/>
+
         </div>
       </div>
     </div>
@@ -85,4 +146,4 @@ function page() {
   );
 }
 
-export default page;
+export default MainPage;
