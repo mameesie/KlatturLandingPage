@@ -14,11 +14,17 @@ export default function VimeoAnimation() {
   const [volume, setVolume] = useState(1)
   const [showVolumeSlider, setShowVolumeSlider] = useState(false)
   const [showControls, setShowControls] = useState(false)
+  const [iframeKey, setIframeKey] = useState(0)
 
   const durationRef = useRef(0)
   const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const progressBarRef = useRef<HTMLDivElement | null>(null)
+  const isDraggingRef = useRef(false)
 
-  // Start/reset the auto-hide countdown
+  useEffect(() => {
+    setIframeKey(k => k + 1)
+  }, [])
+
   const resetHideTimer = () => {
     if (hideTimerRef.current) clearTimeout(hideTimerRef.current)
     setShowControls(true)
@@ -28,7 +34,6 @@ export default function VimeoAnimation() {
     }, 3000)
   }
 
-  // Clean up timer on unmount
   useEffect(() => {
     return () => {
       if (hideTimerRef.current) clearTimeout(hideTimerRef.current)
@@ -44,33 +49,44 @@ export default function VimeoAnimation() {
   useEffect(() => {
     if (!iframeRef.current) return
 
-    const player = new Player(iframeRef.current)
-    playerRef.current = player
+    playerRef.current?.destroy()
+    playerRef.current = null
 
-    player.getDuration().then((d) => {
-      durationRef.current = d
-    })
+    const iframe = iframeRef.current
 
-    player.on('play', () => {
-      setHasStarted(true)
-      setIsPlaying(true)
-    })
+    const initPlayer = () => {
+      const player = new Player(iframe)
+      playerRef.current = player
 
-    player.on('pause', () => setIsPlaying(false))
+      player.ready().then(() => {
+        player.getDuration().then((d) => {
+          durationRef.current = d
+        })
+      }).catch(() => {})
 
-    player.on('timeupdate', (data) => {
-      if (progressBarFillRef.current) {
-        progressBarFillRef.current.style.width = `${data.percent * 100}%`
-      }
-      if (timestampRef.current) {
-        timestampRef.current.textContent = formatTime(data.seconds)
-      }
-    })
+      player.on('play', () => {
+        setHasStarted(true)
+        setIsPlaying(true)
+      })
+      player.on('pause', () => setIsPlaying(false))
+      player.on('timeupdate', (data) => {
+        if (progressBarFillRef.current) {
+          progressBarFillRef.current.style.width = `${data.percent * 100}%`
+        }
+        if (timestampRef.current) {
+          timestampRef.current.textContent = formatTime(data.seconds)
+        }
+      })
+    }
+
+    iframe.addEventListener('load', initPlayer, { once: true })
 
     return () => {
-      player.destroy()
+      iframe.removeEventListener('load', initPlayer)
+      playerRef.current?.destroy()
+      playerRef.current = null
     }
-  }, [])
+  }, [iframeKey])
 
   const togglePlay = async () => {
     if (!playerRef.current) return
@@ -82,9 +98,6 @@ export default function VimeoAnimation() {
     }
     resetHideTimer()
   }
-
-  const progressBarRef = useRef<HTMLDivElement | null>(null)
-  const isDraggingRef = useRef(false)
 
   const seekToPosition = async (clientX: number) => {
     if (!playerRef.current || !progressBarRef.current) return
@@ -171,16 +184,14 @@ export default function VimeoAnimation() {
       }}
       onTouchStart={resetHideTimer}
     >
-      {/* iframe — always receives pointer events so Vimeo error buttons work */}
       <iframe
+        key={iframeKey}
         ref={iframeRef}
         src="https://player.vimeo.com/video/1184349934?controls=0"
         allow="autoplay; fullscreen; picture-in-picture"
         className="absolute top-0 left-0 w-full h-full"
       />
 
-      {/* Transparent overlay — sits above iframe to intercept clicks for our controls,
-          but only covers the area above the controls bar so error buttons remain clickable */}
       {hasStarted && (
         <div
           className="absolute top-0 left-0 w-full pointer-events-auto"
@@ -189,11 +200,10 @@ export default function VimeoAnimation() {
         />
       )}
 
-      {/* Center Play */}
       {!hasStarted && (
         <button
           onClick={togglePlay}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[12%] h-[21%] rounded-full bg-[#254c5c] border-none cursor-pointer flex items-center justify-center"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[12%] h-[21%] rounded-full bg-[#254c5c] border-none cursor-pointer flex items-center justify-center hover:scale-110 active:scale-100"
         >
           <svg viewBox="0 0 24 24" fill="white" width="48%">
             <polygon points="8,5 19,12 8,19" />
@@ -203,7 +213,6 @@ export default function VimeoAnimation() {
 
       {hasStarted && (
         <>
-          {/* Vertical volume panel */}
           <div
             className={`absolute bottom-[62px] right-[64px] bg-[#254c5c] rounded-lg px-2.5 py-3 flex flex-col items-center transition-opacity duration-200 ${showVolumeSlider && showControls ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
           >
@@ -214,7 +223,7 @@ export default function VimeoAnimation() {
               step="0.01"
               value={volume}
               onChange={handleVolume}
-              className="cursor-pointer accent-white bg-[#254c5c] volume-slider" 
+              className="cursor-pointer accent-white bg-[#254c5c] volume-slider"
               style={{
                 writingMode: 'vertical-lr' as React.CSSProperties['writingMode'],
                 direction: 'rtl' as React.CSSProperties['direction'],
@@ -224,11 +233,9 @@ export default function VimeoAnimation() {
             />
           </div>
 
-          {/* Controls bar */}
           <div
             className={`absolute bottom-5.5 left-5.5 right-5.5 bg-[#254c5c] rounded-md flex items-center gap-2.5 px-3 py-1.5 transition-opacity duration-300 ${showControls ? 'opacity-100' : 'opacity-0'}`}
           >
-            {/* Play/Pause */}
             <button onClick={togglePlay} className="bg-transparent border-none text-white cursor-pointer p-0.5 flex items-center justify-center">
               {isPlaying
                 ? <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
@@ -236,12 +243,10 @@ export default function VimeoAnimation() {
               }
             </button>
 
-            {/* Timestamp */}
             <span ref={timestampRef} className="text-white text-[13px] font-mono min-w-[38px]">
               00:00
             </span>
 
-            {/* Progress bar */}
             <div
               ref={progressBarRef}
               onMouseDown={handleSeekMouseDown}
@@ -250,12 +255,10 @@ export default function VimeoAnimation() {
               style={{ touchAction: 'none' }}
             >
               <div ref={progressBarFillRef} className="w-0 h-full bg-white rounded-sm relative">
-                {/* Drag handle */}
                 <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-md -mr-1.5" />
               </div>
             </div>
 
-            {/* Volume icon */}
             <button
               onClick={() => { setShowVolumeSlider(v => !v); resetHideTimer() }}
               className="bg-transparent border-none text-white cursor-pointer p-0.5 flex items-center justify-center"
@@ -263,7 +266,6 @@ export default function VimeoAnimation() {
               <VolumeIcon />
             </button>
 
-            {/* Fullscreen */}
             <button
               onClick={handleFullscreen}
               className="bg-transparent border-none text-white cursor-pointer p-0.5 flex items-center justify-center"

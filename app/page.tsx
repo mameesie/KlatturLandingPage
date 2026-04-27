@@ -102,8 +102,9 @@ function MainPage() {
   }, []);
   return (
     <div className=" ">
-      {/* <p className="text-[max(6vw,28px)] lxl:text-[57px] md:text-[4vw] mt-[max(11.2vw,47px)] md:mt-[6.5vw] lxl:mt-[90px] leading-[max(7.9vw,35px)] md:leading-normal text-center text-white font-no-name-regular">
-        Minder mind clutter,<br className="md:hidden" />  meer rust in je hoofd
+      <p className="text-[max(6vw,28px)] lxl:text-[57px] md:text-[4vw] mt-[max(11.2vw,47px)] md:mt-[6.5vw] lxl:mt-[90px] leading-[max(7.9vw,35px)] md:leading-normal text-center text-white font-no-name-regular">
+        Minder mind clutter,
+        <br className="md:hidden" /> meer rust in je hoofd
       </p>
       <p className=" text-[max(3.2vw,16px)] md:text-[2.1vw] lxl:text-[29px] mb-[max(7vw,28.5px)] md:mb-[4vw] lxl:mb-[55px] mt-[max(2.6vw,9px)] md:mt-[-.5vw] lxl:mt-[-6.9px] text-center text-white font-open-sans-regular">
         Tien minuten. Eén gedachte
@@ -113,38 +114,58 @@ function MainPage() {
           <VimeoAnimation />
         </div>
       </div>
-      
+
       <div className="flex justify-center">
-        <a href="/sessie" className="bg-[#9ACC8F] font-no-name-regular text-[#56710C] flex items-center justify-center rounded-[2000px] w-[50vw] min-w-[200px] max-w-[280px] h-[12.5vw] min-h-[50px] max-h-[75px]  text-[min(max(4vw,16px),24px)]  my-[max(7.7vw,31px)] vimeo:my-[57px]">
+        <a
+          href="/sessie"
+          className="bg-[#9ACC8F] font-no-name-regular text-[#56710C] flex items-center justify-center rounded-[2000px] w-[50vw] min-w-[200px] max-w-[280px] h-[12.5vw] min-h-[50px] max-h-[75px]  text-[min(max(4vw,16px),24px)]  my-[max(7.7vw,31px)] vimeo:my-[57px] hover:scale-105 active:scale-100"
+        >
           Probeer het zelf
         </a>
       </div>
-      
+
       <div className="bg-[#56710C] rounded-[35px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto lxl:flex lxl:justify-center">
         <div className="w-full flex flex-col sm:flex-row justify-between items-center ">
           <div className="sm:ml-[65px] mt-[50px] sm:mt-[39px] sm:mb-[32px]">
-            <BuzzMagnifier className="w-[85px] sm:w-[120px] "/>
+            <BuzzMagnifier className="w-[85px] sm:w-[120px] " />
           </div>
           <div className="mt-[12px] mb-[45px] sm:my-[45px] ">
-            <p className="font-no-name-regular  font-semibold text-white  mx-[40px] sm:mx-[51px] text-[20px] sm:text-[23px]  ">Hoe werkt het?</p>
-            <p className="font-open-sans-regular text-white mx-[40px] sm:mx-[51px] text-[16px] leading-[26px] sm:leading-[29px]  ">Neem een gedachte die je dwars zit. Klattur bevraagt deze gedachte stap voor stap, met audio, in je eigen tempo. Je onderzoekt wat die gedachte met je doet. En vooral, wat er overblijft als je hem checkt.</p>
+            <p className="font-no-name-regular  font-semibold text-white  mx-[40px] sm:mx-[51px] text-[20px] sm:text-[23px]  ">
+              Hoe werkt het?
+            </p>
+            <p className="font-open-sans-regular text-white mx-[40px] sm:mx-[51px] text-[16px] leading-[26px] sm:leading-[29px]  ">
+              Neem een gedachte die je dwars zit. Klattur bevraagt deze gedachte
+              stap voor stap, met audio, in je eigen tempo. Je onderzoekt wat
+              die gedachte met je doet. En vooral, wat er overblijft als je hem
+              checkt.
+            </p>
           </div>
         </div>
       </div>
-      
+
       <div className="bg-[#56710C] rounded-[35px] mt-[80px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto lxl:flex lxl:justify-center">
         <div className="w-full flex flex-col sm:flex-row justify-between items-center ">
           <div className="sm:ml-[65px] mt-[50px] sm:mt-[39px] sm:mb-[32px]">
-            <ScienceGroup className="w-[100px] sm:w-[120px] mb-[9px] sm:mb-[0px] "/>
+            <ScienceGroup className="w-[100px] sm:w-[120px] mb-[9px] sm:mb-[0px] " />
           </div>
           <div className="mt-[12px] mb-[45px] sm:my-[45px]">
-            <p className="font-no-name-regular font-semibold text-white  mx-[40px] sm:mx-[51px] text-[20px] sm:text-[23px]  ">Wetenschappelijk onderbouwd</p>
-            <p className="font-open-sans-regular text-white mx-[40px] sm:mx-[51px] text-[16px] leading-[26px] sm:leading-[29px]  ">Uit klinisch onderzoek onder bijna 200 deelnemers bleek dat mensen na het werken met deze aanpak zich significant minder angstig, somberder en bozer voelen en dat dit effect zes maanden later nog steeds meetbaar was. In een tweede studie met controlegroep namen burn-outklachten significant af bij de groep die de methode volgde. Kort gezegd: het werkt. En veel mensen merken al na één sessie verschil.</p>
+            <p className="font-no-name-regular font-semibold text-white  mx-[40px] sm:mx-[51px] text-[20px] sm:text-[23px]  ">
+              Wetenschappelijk onderbouwd
+            </p>
+            <p className="font-open-sans-regular text-white mx-[40px] sm:mx-[51px] text-[16px] leading-[26px] sm:leading-[29px]  ">
+              Uit klinisch onderzoek onder bijna 200 deelnemers bleek dat mensen
+              na het werken met deze aanpak zich significant minder angstig,
+              somberder en bozer voelen en dat dit effect zes maanden later nog
+              steeds meetbaar was. In een tweede studie met controlegroep namen
+              burn-outklachten significant af bij de groep die de methode
+              volgde. Kort gezegd: het werkt. En veel mensen merken al na één
+              sessie verschil.
+            </p>
           </div>
         </div>
-      </div> */}
+      </div>
 
-      <div className="bg-[#99CC8F] rounded-[35px] mt-[80px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto flex flex-col lxl:justify-center">
+      <div className="bg-[#99CC8F] rounded-[35px] mt-[80px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto flex flex-col lxl:justify-center mb-[80px]">
         <p className="font-no-name-regular text-center text-[#56710C] text-[25px] sm:text-[23px] pt-[38px] pb-[20px] ">
           Waar zit jij mee?
         </p>
@@ -182,14 +203,23 @@ function MainPage() {
               title="Iets anders"
               description="Zit je ergens mee dat hier niet tussen past? Begin gewoon."
             />
-            <p className="text-white mx-[40px] lg:w-[360px] lg:ml-[40px] lg:mr-[0px] lg:flex lg:items-center">Kies wat er nu speelt. Doe een sessie. En kijk wat er daarna nog over is van die gedachte.</p>
+            <div className="flex justify-center">
+              <p className="text-white mx-[40px] text-center lg:text-left  sm:w-[460px] lg:w-[360px] lg:ml-[40px] lg:mr-[0px] lg:flex lg:items-center">
+                Kies wat er nu speelt. Doe een sessie. En kijk wat er daarna nog
+                over is van die gedachte.
+              </p>
+            </div>
           </div>
-          
         </div>
-        
-        <div className="flex justify-center mt-[35px] mb-[60px]">
-          <a className="flex justify-center items-center bg-[#13333E] rounded-[2000px] w-[160px] h-[50px] text-white font-no-name-regular cursor-pointer" href="/sessie">Probeer nu</a></div>
+        <div className="flex justify-center ">
+          <a
+            className="flex justify-center items-center bg-[#13333E] rounded-[2000px] w-[160px] h-[50px] mt-[25px] mb-[60px] text-white font-no-name-regular cursor-pointer hover:scale-105 active:scale-100"
+            href="/sessie"
+          >
+            Probeer nu
+          </a>
         </div>
+      </div>
     </div>
 
     // <div className="flex justify-evenly">
