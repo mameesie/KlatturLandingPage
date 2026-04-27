@@ -149,33 +149,47 @@ function MainPage() {
           Waar zit jij mee?
         </p>
         <div className="w-full ">
-          <WaarZitJeMeeCard
-            illustration={StudyMan}
-            title="Studie en school"
-            description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
-          />
-          <WaarZitJeMeeCard
-            illustration={HeartMan}
-            title="Gezondheid"
-            description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
-          />
-          <WaarZitJeMeeCard
-            illustration={WorkMan}
-            title="Werk"
-            description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
-          />
-          <WaarZitJeMeeCard
-            illustration={SomethingElseMan}
-            title="Werk"
-            description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
-          />
-          <WaarZitJeMeeCard
-            illustration={YourselfMan}
-            title="Werk"
-            description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
-          />
+          <div className="flex flex-col lg:flex-row lg:justify-center">
+            <WaarZitJeMeeCard
+              illustration={StudyMan}
+              title="Studie en school"
+              description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
+            />
+            <WaarZitJeMeeCard
+              className="lg:ml-[40px]"
+              illustration={HeartMan}
+              title="Relaties"
+              description="Iets wat je dwarszit over je partner, een vriend, je ouders of een ex."
+            />
+          </div>
+
+          <div className="flex flex-col lg:flex-row lg:justify-center">
+            <WaarZitJeMeeCard
+              illustration={WorkMan}
+              title="Werk of collega's"
+              description="Een gedachte over je leidinggevende, een collega of hoe je functioneert."
+            />
+            <WaarZitJeMeeCard
+              className="lg:ml-[40px]"
+              illustration={YourselfMan}
+              title="Over mijzelf"
+              description="Een overtuiging over wie je bent, hoe je eruitziet of wat je wel of niet kan."
+            />
+          </div>
+          <div className="flex flex-col lg:flex-row lg:justify-center">
+            <WaarZitJeMeeCard
+              illustration={SomethingElseMan}
+              title="Iets anders"
+              description="Zit je ergens mee dat hier niet tussen past? Begin gewoon."
+            />
+            <p className="text-white mx-[40px] lg:w-[360px] lg:ml-[40px] lg:mr-[0px] lg:flex lg:items-center">Kies wat er nu speelt. Doe een sessie. En kijk wat er daarna nog over is van die gedachte.</p>
+          </div>
+          
         </div>
-      </div>
+        
+        <div className="flex justify-center mt-[35px] mb-[60px]">
+          <a className="flex justify-center items-center bg-[#13333E] rounded-[2000px] w-[160px] h-[50px] text-white font-no-name-regular cursor-pointer" href="/sessie">Probeer nu</a></div>
+        </div>
     </div>
 
     // <div className="flex justify-evenly">

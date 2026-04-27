@@ -21,18 +21,18 @@ export default function WaarZitJeMeeCard({
   className = "",
 }: WaarZitJeMeeCardProps) {
   return (
-    <div className={`${className} flex flex-col items-center`}>
+    <div className={`${className} flex flex-col xs:flex-row items-center`}>
       {/* Illustration */}
-      <div className={`sm:ml-[65px] ${animationClass}`}>
+      <div className={`xs:ml-[40px] xs:my-[30px] lg:ml-[0px] ${animationClass}`}>
         <Illustration className="w-[120px] sm:w-[140px]" />
       </div>
 
       {/* Text */}
-      <div className="mt-[12px] mb-[45px] sm:my-[45px]">
-        <p className="font-no-name-regular text-[#56710C] mx-[40px] sm:mx-[51px] text-[20px] sm:text-[23px]">
+      <div className="mt-[12px] mb-[45px] xs:my-[0px] mx-[40px] xs:ml-[20px] lg:mr-[0px] lg:w-[200px] ">
+        <p className="font-no-name-regular text-[#56710C]  text-[20px] sm:text-[23px]">
           {title}
         </p>
-        <p className="font-open-sans-regular text-white mx-[40px] sm:mx-[51px] text-[16px] leading-[26px] sm:leading-[29px]">
+        <p className="font-open-sans-regular text-white  text-[16px] leading-[26px] sm:leading-[29px]">
           {description}
         </p>
       </div>
