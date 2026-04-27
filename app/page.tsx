@@ -3,7 +3,7 @@ import MoodPeopleGlasses from "@/public/MoodPeopleGlasses";
 import React, { useEffect } from "react";
 import VimeoAnimation from "./components/VimeoAnimation";
 import BuzzMagnifier from "@/public/BuzzMagnifier";
- import ScienceGroup from "@/public/ScienceGroup";
+import ScienceGroup from "@/public/ScienceGroup";
 import StudyMan from "@/public/StudyMan";
 import WaarZitJeMeeCard from "./components/WaarZitJeMeeCard";
 import HeartMan from "@/public/HeartMan";
@@ -14,61 +14,92 @@ import SomethingElseMan from "@/public/SomthingElseMan";
 import YourselfMan from "@/public/YourselfMan";
 
 function MainPage() {
-
   useEffect(() => {
-    gsap.registerPlugin(MorphSVGPlugin)
-  const tl = gsap.timeline({
-    repeat: -1,
-  });
+    gsap.registerPlugin(MorphSVGPlugin);
 
-  // 3 morph cycles (A ↔ B)
-  // tl.to("#heart", {
-  //   duration: 0.8,
-  //   morphSVG: "#heart2",
-  //   ease: "power2.inOut",
-  //   repeat: 5,
-  //   yoyo: true,
-  // })
+    const tl = gsap.timeline({
+      repeat: -1,
+    });
+    const cm = gsap.timeline({
+      repeat: -1,
+    });
+
+    // heartMan
     tl.to("#heart", {
-    duration: 0.8,
-    
-    scale: 0.075,
-    repeat: 0,
-    transformOrigin: "center center "
-  })
+      duration: 0.8,
 
+      scale: 0.075,
+      repeat: 0,
+      transformOrigin: "center center ",
+    })
 
- tl.to("#heart", {
-    duration: 0.8,
-    
-    scale: 0.06,
-    repeat: 0,
-    transformOrigin: "center center "
-  })
-.add(gsap.delayedCall(0.3, () => {}))
-  // shrink
-  .to("#heart", {
-    duration: 1.0,
-    scale: 0.0010,
-    transformOrigin: "bottom center ",
-  })
-.add(gsap.delayedCall(0.6, () => {}))
-  // reset
-  .set("#heart", {
-    morphSVG: "#heart", // IMPORTANT: this must exist as original path state
-    scale: 1,
-  });
+      .to("#heart", {
+        duration: 0.8,
 
-   gsap.to("#workman-briefcase", {
-    rotation: 10,
-    transformOrigin: "0% 0%",
-    duration: 0.5,
-    ease: "power1.inOut",
-    yoyo: true,
-    repeat: -1,
-  });
+        scale: 0.06,
+        repeat: 0,
+        transformOrigin: "center center ",
+      })
+      .add(gsap.delayedCall(0.3, () => {}))
+      // shrink
+      .to("#heart", {
+        duration: 1.0,
+        scale: 0.001,
+        transformOrigin: "bottom center ",
+      })
+      .add(gsap.delayedCall(0.6, () => {}))
 
-}, []);
+      .to("#heart", {
+        // IMPORTANT: this must exist as original path state
+        scale: 0.06,
+        duration: 0.8,
+        transformOrigin: "bottom center ",
+      });
+    // WorkMan
+    gsap.to("#workman-briefcase", {
+      rotation: 10,
+      transformOrigin: "0% 0%",
+      duration: 0.5,
+      ease: "power1.inOut",
+      yoyo: true,
+      repeat: -1,
+    });
+
+    gsap.to("#mirror", {
+      rotation: 10,
+      transformOrigin: "0% 100%",
+      duration: 0.5,
+      ease: "power1.inOut",
+      yoyo: true,
+      repeat: -1,
+    });
+
+    // SOmethingElseMan
+    cm.add(gsap.delayedCall(0.2, () => {}))
+      .to("#CheckCover", {
+        duration: 0.75,
+        morphSVG: "M67 110h6v36H67z",
+      })
+      .to("#checkMark", {
+        duration: 0.75,
+
+        scale: 0.075,
+        repeat: 0,
+        transformOrigin: "center center ",
+      })
+      .to("#checkMark", {
+        duration: 0.75,
+
+        scale: 0.058,
+        repeat: 0,
+        transformOrigin: "center center ",
+      })
+      .add(gsap.delayedCall(0.6, () => {}))
+      .to("#CheckCover", {
+        duration: 0.75,
+        morphSVG: "M26 110h47v36H26z",
+      });
+  }, []);
   return (
     <div className=" ">
       {/* <p className="text-[max(6vw,28px)] lxl:text-[57px] md:text-[4vw] mt-[max(11.2vw,47px)] md:mt-[6.5vw] lxl:mt-[90px] leading-[max(7.9vw,35px)] md:leading-normal text-center text-white font-no-name-regular">
@@ -112,21 +143,40 @@ function MainPage() {
           </div>
         </div>
       </div> */}
-      
-      <div className="bg-[#99CC8F] rounded-[35px] mt-[80px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto flex flex-col lxl:justify-center">
-        <p className="font-no-name-regular text-center text-[#56710C] text-[25px] sm:text-[23px] pt-[38px] pb-[20px] ">Waar zit jij mee?</p>
-        <div className="w-full ">
-          
-          <WaarZitJeMeeCard illustration={StudyMan} title="Studie en school" description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."/>
-          <WaarZitJeMeeCard illustration={HeartMan} title="Gezondheid" description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."/>
-          <WaarZitJeMeeCard illustration={WorkMan} title="Werk" description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."/>
-          <WaarZitJeMeeCard illustration={SomethingElseMan} title="Werk" description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."/>
-          <WaarZitJeMeeCard illustration={YourselfMan} title="Werk" description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."/>
 
+      <div className="bg-[#99CC8F] rounded-[35px] mt-[80px] mx-[8vw] lxl:w-[1110px] lxl:mx-auto flex flex-col lxl:justify-center">
+        <p className="font-no-name-regular text-center text-[#56710C] text-[25px] sm:text-[23px] pt-[38px] pb-[20px] ">
+          Waar zit jij mee?
+        </p>
+        <div className="w-full ">
+          <WaarZitJeMeeCard
+            illustration={StudyMan}
+            title="Studie en school"
+            description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
+          />
+          <WaarZitJeMeeCard
+            illustration={HeartMan}
+            title="Gezondheid"
+            description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
+          />
+          <WaarZitJeMeeCard
+            illustration={WorkMan}
+            title="Werk"
+            description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
+          />
+          <WaarZitJeMeeCard
+            illustration={SomethingElseMan}
+            title="Werk"
+            description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
+          />
+          <WaarZitJeMeeCard
+            illustration={YourselfMan}
+            title="Werk"
+            description="Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen."
+          />
         </div>
       </div>
     </div>
-
 
     // <div className="flex justify-evenly">
     //   <div className="flex items-center w-[50%]">
