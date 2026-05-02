@@ -24,7 +24,7 @@ const SomethingElseMan = (props: React.SVGProps<SVGSVGElement>) => (  <svg
       style={{
         fill: "#6da097",
       }}
-      transform="translate(1.913 .148) scale(.18536)"
+      transform="translate(9.913 1.148) scale(.18536)"
     />
     <path
       d="M382.295 545.346s38.92 42.396 58.504-4.804"
@@ -33,7 +33,7 @@ const SomethingElseMan = (props: React.SVGProps<SVGSVGElement>) => (  <svg
         stroke: "#fff",
         strokeWidth: 8,
       }}
-      transform="translate(14.73 -22.352) scale(.18536)"
+      transform="translate(22.73 -21.352) scale(.18536)"
     />
     <path
       d="M382.295 545.346s38.92 42.396 58.504-4.804"
@@ -42,7 +42,7 @@ const SomethingElseMan = (props: React.SVGProps<SVGSVGElement>) => (  <svg
         stroke: "#fff",
         strokeWidth: 8,
       }}
-      transform="matrix(-.18536 0 0 .18536 205.545 -22.324)"
+      transform="matrix(-.18536 0 0 .18536 213.545 -21.324)"
     />
     <path
       d="M628.051 474.526s18.017 47.752 17.513 61.881c-.366 10.245-20.538 21.085-20.538 22.893"
@@ -51,7 +51,7 @@ const SomethingElseMan = (props: React.SVGProps<SVGSVGElement>) => (  <svg
         stroke: "#fff",
         strokeWidth: 8,
       }}
-      transform="translate(-3.586 5.208) scale(.18536)"
+      transform="translate(4.414 6.208) scale(.18536)"
     />
     <path
       d="M663.092 787.21s15.161 157.692 44.612 162.851c26.54 4.649 34.819-1.004 35.424-1.004"
@@ -60,7 +60,7 @@ const SomethingElseMan = (props: React.SVGProps<SVGSVGElement>) => (  <svg
         stroke: "#6da097",
         strokeWidth: 25,
       }}
-      transform="matrix(-.18536 0 0 .18536 219.909 18.848)"
+      transform="matrix(-.18536 0 0 .18536 227.909 19.848)"
     />
     <path
       d="M339.224 600s-31.036 10.617-41.323 39.664"
@@ -69,7 +69,7 @@ const SomethingElseMan = (props: React.SVGProps<SVGSVGElement>) => (  <svg
         stroke: "#6da097",
         strokeWidth: 25,
       }}
-      transform="translate(1.786 21.443) scale(.18536)"
+      transform="translate(9.786 22.443) scale(.18536)"
     />
     <path
       d="M660.092 795.628s11.415 67.513 26.675 107.376c6.414 16.755 14.037 29.192 22.753 30.719 26.54 4.649 36.826-5.159 37.431-5.159"
@@ -79,7 +79,7 @@ const SomethingElseMan = (props: React.SVGProps<SVGSVGElement>) => (  <svg
         strokeWidth: 25,
         strokeLinecap: "butt",
       }}
-      transform="translate(1.786 21.443) scale(.18536)"
+      transform="translate(9.786 22.443) scale(.18536)"
     />
     <path
       d="M709.52 933.723c26.54 4.649 36.826-5.159 37.431-5.159"
@@ -88,7 +88,7 @@ const SomethingElseMan = (props: React.SVGProps<SVGSVGElement>) => (  <svg
         stroke: "#76aaa0",
         strokeWidth: 25,
       }}
-      transform="translate(1.786 21.443) scale(.18536)"
+      transform="translate(9.786 22.443) scale(.18536)"
     />
     <path
       d="M339.224 600s-31.036 10.617-41.323 39.664"
@@ -97,35 +97,35 @@ const SomethingElseMan = (props: React.SVGProps<SVGSVGElement>) => (  <svg
         stroke: "#76aaa0",
         strokeWidth: 25,
       }}
-      transform="matrix(-.18536 0 0 .18536 216.845 21.629)"
+      transform="matrix(-.18536 0 0 .18536 224.845 22.629)"
     />
     <path
       d="M667.932 253.47c54.894 1.963 57.642 7.77 84.581 16.889 47.067 15.934 69.995 63.111 77.858 112.177 13.036 81.34 15.173 273.673 0 361.131-10.668 61.494-14 123.115-71.829 146.592-24.74 10.043-67.105 18.273-114.1 23.457 125.697-59.317 192.216-211.875 168.822-401.666-20.784-168.622-67.956-211.878-145.332-258.58Z"
       style={{
         fill: "#76aaa0",
       }}
-      transform="translate(1.913 .148) scale(.18536)"
+      transform="translate(9.913 1.148) scale(.18536)"
     />
     <path
       d="M226.908 293.87S335.523 15.831 843.861 19.211c0 0 547.809-35.277 620.079 274.659H226.908Z"
       style={{
         fill: "#af9c8f",
       }}
-      transform="matrix(.0575 0 0 .11377 61.542 39.317)"
+      transform="matrix(.0575 0 0 .11377 69.542 40.317)"
     />
     <path
       d="M223.794 461.935c17.662-4.042 37.685-11.091 56.565-11.091h116.424l-40.854-121.599c-2.868-10.949 8.571-7.436 9.208-7.436.547 0 38.535 100.523 49.299 129.035h87.742c130.245-28.681 225.004-126.403 225.004-126.403 26.822 45.885 45.287 88.101 57.269 126.74 70.803 3.687 156.952 68.199 199.437 119.46 22.242-47.627 21.152-120.311 21.152-120.311 10.01-248.045-194.787-294.891-194.787-294.891-42.556 11.904-49.328-31.629-49.328-31.629.637-35.048-78.32-59.651-78.32-59.651-316.972-76.66-435.909 234.204-435.909 234.204-17.955 58.168-25.548 115.894-22.902 163.572Z"
       style={{
         fill: "#2e4b59",
       }}
-      transform="matrix(-.12281 0 0 .12281 183.691 17.442)"
+      transform="matrix(-.12281 0 0 .12281 191.691 18.442)"
     />
     <path
       d="M663.274 59.91C360.785.171 246.696 298.363 246.696 298.363c-17.955 58.168-25.548 115.894-22.902 163.572 17.662-4.042 37.685-11.091 56.565-11.091h14.228C365.68 250.241 506.621 102.935 663.274 59.91Z"
       style={{
         fill: "#385d6d",
       }}
-      transform="matrix(-.12281 0 0 .12281 183.691 17.442)"
+      transform="matrix(-.12281 0 0 .12281 191.691 18.442)"
     />
     <path
       id="checkMark"

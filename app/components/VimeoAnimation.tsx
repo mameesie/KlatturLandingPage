@@ -203,7 +203,7 @@ export default function VimeoAnimation() {
       {!hasStarted && (
         <button
           onClick={togglePlay}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[12%] h-[21%] rounded-full bg-[#254c5c] border-none cursor-pointer flex items-center justify-center hover:scale-110 active:scale-100"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[12%] h-[21%] rounded-full  bg-[#13333E] hover:bg-[#254c5c] border-none cursor-pointer flex items-center justify-center hover:scale-110 active:scale-100"
         >
           <svg viewBox="0 0 24 24" fill="white" width="48%">
             <polygon points="8,5 19,12 8,19" />

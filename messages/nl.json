@@ -1,0 +1,25 @@
+{
+  "landing": {
+    "title1": "Minder mind clutter,",
+    "title2": " meer rust in je hoofd",
+    "subtitle": "Tien minuten. Eén gedachte",
+    "button1": "Probeer het zelf",
+    "howItWorks": "Hoe werkt het?",
+    "howItWorksText": "Neem een gedachte die je dwars zit. Klattur bevraagt deze gedachte stap voor stap, met audio, in je eigen tempo. Je onderzoekt wat die gedachte met je doet. En vooral, wat er overblijft als je hem checkt.",
+    "scienceBacked":  "Wetenschappelijk onderbouwd",
+    "scienceBackedText": "Uit klinisch onderzoek onder bijna 200 deelnemers bleek dat mensen na het werken met deze aanpak zich significant minder angstig, somberder en bozer voelen en dat dit effect zes maanden later nog steeds meetbaar was. In een tweede studie met controlegroep namen burn-outklachten significant af bij de groep die de methode volgde. Kort gezegd: het werkt. En veel mensen merken al na één sessie verschil.",
+    "whatIsOnYourMind": "Waar zit jij mee?",
+    "study":"Studie en school",
+    "studyText":"Stress over een toets, een opdracht of het gevoel dat je het allemaal niet kan bijbenen.",
+    "relations":"Relaties",
+    "relationsText":"Iets wat je dwarszit over je partner, een vriend, je ouders of een ex.",
+    "work":"Werk of collega's",
+    "workText":"Een gedachte over je leidinggevende, een collega of hoe je functioneert.",
+    "yourSelf":"Over mijzelf",
+    "yourSelfText":"Een overtuiging over wie je bent, hoe je eruitziet of wat je wel of niet kan.",
+    "somethingElse":"Iets anders",
+    "somethingElseText":"Zit je ergens mee dat hier niet tussen past? Begin gewoon.",
+    "extraText":"Kies wat er nu speelt. Doe een sessie. En kijk wat er daarna nog over is van die gedachte.",
+    "button2":"Probeer nu"
+  }
+}
