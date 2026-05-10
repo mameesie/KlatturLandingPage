@@ -18,7 +18,7 @@ const t  = await getTranslations("start")
         </p>
         <Link href='/session'
           
-          className=" cursor-pointer bg-[#9ACC8F] hover:bg-[#aad2a2] font-no-name-regular text-[19px] text-[#56710C] flex items-center justify-center mt-[70px] rounded-[2000px] w-[180px] h-[60px] hover:scale-105 active:scale-100"
+          className=" cursor-pointer bg-[#9ACC8F] hover:bg-[#aad2a2] font-no-name-regular text-[19px] text-[#56710C] flex items-center justify-center my-[70px]  rounded-[2000px] w-[180px] h-[60px] hover:scale-105 active:scale-100"
         >
           {t('play')}
         </Link>

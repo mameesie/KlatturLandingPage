@@ -32,16 +32,70 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${no_name_reg.variable} ${open_sans_semibold.variable} ${open_sans_regular.variable} antialiased`}
-      >
-        <div className="h-screen flex flex-col">
-        <Header></Header>
-        <main className="flex-1 overflow-auto bg-[#85A425] flex flex-col">
-          {children}  
-          <Footer/>
-        </main>
-      </div>
-      </body>
+  className={`${no_name_reg.variable} ${open_sans_semibold.variable} ${open_sans_regular.variable} antialiased bg-[#57730D]`}
+>
+  <div className="relative min-h-screen flex flex-col">
+    <Header />
+
+    {/* Background grid */}
+    <div 
+  aria-hidden="true"
+  className="absolute inset-0 -z-9 overflow-hidden pointer-events-none grid gap-x-6 gap-y-8 p-10"
+  style={{
+    gridTemplateColumns: '480px 520px 460px 400px 570px 410px 590px 475px 415px 465px',
+    gridTemplateRows: 'repeat(auto-fill, 480px)',
+    columnGap: '60px',
+    rowGap: '80px',
+  }}
+>
+  {Array.from({ length: 200 }).map((_, i) => (
+    <div
+      key={i}
+      className="w-[80px] h-[80px] rounded-3xl shrink-0 bg-[#f9ff4015]"
+      style={{
+        filter: 'blur(18px)',
+        marginTop:
+          i % 5 === 0 ? '170px' :
+          i % 3 === 0 ? '-20px' :
+          i % 2 === 0 ? '140px' : '0px',
+        
+      }}
+    />
+  ))}
+</div>
+<div
+  aria-hidden="true"
+  className="absolute inset-0 -z-10 overflow-hidden pointer-events-none grid gap-x-6 gap-y-8 p-10"
+  style={{
+    gridTemplateColumns: '370px 375px 360px 370px 360px 365px 370px 375px 365px 365px',
+    gridTemplateRows: 'repeat(auto-fill, 380px)',
+    marginLeft: '-50px',
+    
+  }}
+>
+  {Array.from({ length: 2000 }).map((_, i) => (
+    <div
+      key={i}
+      className="w-[350px] h-[350px] rounded-[70px] shrink-0"
+      style={{
+        filter: 'blur(30px)',
+        marginTop:
+          i % 5 === 0 ? '170px' :
+          i % 3 === 0 ? '-20px' :
+          i % 2 === 0 ? '140px' : '0px',
+        backgroundColor: '#62810E',
+      }}
+    />
+  ))}
+</div>
+
+    {/* Remove bg-[#85A425] from main — it's now on body */}
+    <main className="flex-1 overflow-auto flex flex-col">
+      {children}
+      <Footer />
+    </main>
+  </div>
+</body>
     </html>
   );
 }
