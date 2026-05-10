@@ -1,6 +1,6 @@
 
 import React from 'react'
-import Link from "next/link"
+import {Link} from "@/i18n/routing"
 function StartPage() {
 
   return (
@@ -18,12 +18,12 @@ function StartPage() {
           zegt je lichaam meer dan je hoofd.
 
         </p>
-        <a href='/session'
+        <Link href='/session'
           
           className=" cursor-pointer bg-[#9ACC8F] hover:bg-[#aad2a2] font-no-name-regular text-[19px] text-[#56710C] flex items-center justify-center mt-[70px] rounded-[2000px] w-[180px] h-[60px] hover:scale-105 active:scale-100"
         >
           Speel nu af
-        </a>
+        </Link>
       </div>
 
     </div>

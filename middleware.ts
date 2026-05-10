@@ -5,6 +5,7 @@ export default createMiddleware(routing)
 
 export const config = {
   matcher: [
-    "/(nl|en)/:path*"  // ← dit vangt /nl/start en /en/start op
+    "/",
+    "/(nl|en)/:path*"
   ]
 }

@@ -173,7 +173,7 @@ async function  MainPage() {
           Waar zit jij mee?
         </p>
         <div className="w-full ">
-          {/* <div className="flex flex-col lg:flex-row lg:justify-center">
+          <div className="flex flex-col lg:flex-row lg:justify-center">
             <WaarZitJeMeeCard
               illustration={StudyMan}
               title="Studie en school"
@@ -185,9 +185,9 @@ async function  MainPage() {
               title="Relaties"
               description="Iets wat je dwarszit over je partner, een vriend, je ouders of een ex."
             />
-          </div> */}
+          </div>
 
-          {/* <div className="flex flex-col lg:flex-row lg:justify-center">
+          <div className="flex flex-col lg:flex-row lg:justify-center">
             <WaarZitJeMeeCard
               illustration={WorkMan}
               title="Werk of collega's"
@@ -199,8 +199,8 @@ async function  MainPage() {
               title="Over mijzelf"
               description="Een overtuiging over wie je bent, hoe je eruitziet of wat je wel of niet kan."
             />
-          </div> */}
-          {/* <div className="flex flex-col lg:flex-row lg:justify-center">
+          </div>
+          <div className="flex flex-col lg:flex-row lg:justify-center">
             <WaarZitJeMeeCard
               illustration={SomethingElseMan}
               title="Iets anders"
@@ -212,7 +212,7 @@ async function  MainPage() {
                 over is van die gedachte.
               </p>
             </div>
-          </div> */}
+          </div>
         </div>
         <div className="flex justify-center ">
           <Link
