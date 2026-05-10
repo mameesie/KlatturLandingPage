@@ -1,6 +1,60 @@
 {
   "landing": {
-    "title": "Welcome",
-    "subtitle": "This is the English version"
+    "title1": "Less mind clutter,",
+    "title2": " more peace of mind",
+    "subtitle": "Ten minutes. One thought.",
+    "button1": "Try it yourself",
+    "howItWorks": "How does it work?",
+    "howItWorksText": "Take a thought that’s been nagging you. Klattur walks you through it step by step,  audio-guided, at your own pace. You examine what that thought does to you. And most importantly, what’s left once you’ve checked it.",
+    "scienceBacked":  "Evidence-based",
+    "scienceBackedText": "Clinical research with nearly 200 participants found that people using this approach felt significantly less anxious, less low, and less angry and that this effect was still measurable six months later. A second study with a control group showed a significant reduction in burnout symptoms among those who followed the method. In short: it works. And many people notice a difference after just one session.",
+    "whatIsOnYourMind": "What’s on your mind?",
+    "study":"Study or school",
+    "studyText":"Stress about a test, an assignment, or the feeling that you just can’t keep up.",
+    "relations":"Relationships",
+    "relationsText":"Something bothering you about your partner, a friend, your parents, or an ex.",
+    "work":"Work or colleagues",
+    "workText":"A thought about your manager, a colleague, or how you’re performing.",
+    "yourSelf":"About myself",
+    "yourSelfText":"A belief about who you are, how you look, or what you can or can’t do.",
+    "somethingElse":"Something else",
+    "somethingElseText":"Doesn’t fit any of the above? Just start.",
+    "extraText":"Pick what’s playing right now. Do a session. See what’s left of that thought afterwards.",
+    "button2":"Try now"
+  },
+  "start": {
+    "back": "Back to home",
+    "general": "General session",
+    "sound": "Turn on your sound.",
+    "instructions": "Take your time. Write down your answers or remember them, whatever works for you. And while you listen: notice what happens inside. Sometimes your body knows more than your head.",
+    "play": "Play"
+  },
+  "contact": {
+    "session": "Session done?",
+    "tellUs": "Tell us what you thought ",
+    "feedback": "Feedback form",
+    "minute": "(1 minute)",
+    "questions": "Questions or comments?",
+    "email": "Send an email to mireille@klattur.com"
+  }, 
+  "credits": {
+    "byron": "The Work© by Byron Katie",
+    "thought": "The thought inquiry in Klattur is based on The Work by Byron Katie.",
+    "theWork": "Byron Katie has made The Work freely available for everyone to use.",
+    "info": "More information:",
+    "developed": "Klattur is developed by:",
+    "official": "Klattur is not officially affiliated with Byron Katie International."
+  },
+  "privacy": {
+    "respect": "Klattur respects your privacy.",
+    "data": "What data do we collect?",
+    "feedback": "When you give feedback or get in touch:",
+    "name": "- Name and email (optional)",
+    "message": "- Your message",
+    "use": "- We use this to respond and to keep building Klattur",
+    "tracking": "We don't use tracking cookies.",
+    "anonym": "You can use Klattur fully anonymously.",
+    "last": "Last updated: 23/05/2026"
   }
+
 }

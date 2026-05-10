@@ -1,18 +1,48 @@
+"use client"
+
 import * as React from "react"
-const YourselfMan = (props: React.SVGProps<SVGSVGElement>) => (  
+import { useEffect, useRef } from "react"
+import gsap from "gsap"
+
+const YourselfMan = (props: React.SVGProps<SVGSVGElement>) => {
+  const svgRef = useRef<SVGSVGElement>(null)
+
+  useEffect(() => {
+    const mirror = svgRef.current?.querySelector("#mirror")
+
+    if (!mirror) {
+      return
+    }
+
+    const animation = gsap.to(mirror, {
+      rotation: 10,
+      transformOrigin: "0% 100%",
+      duration: 0.5,
+      ease: "power1.inOut",
+      yoyo: true,
+      repeat: -1,
+    })
+
+    return () => {
+      animation.kill()
+    }
+  }, [])
+
+  return (
     <svg
-    xmlns="http://www.w3.org/2000/svg"
-    xmlSpace="preserve"
-    style={{
-      fillRule: "evenodd",
-      clipRule: "evenodd",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      strokeMiterlimit: 1.5,
-    }}
-    viewBox="0 0 219 231"
-    {...props}
-  >
+      ref={svgRef}
+      xmlns="http://www.w3.org/2000/svg"
+      xmlSpace="preserve"
+      style={{
+        fillRule: "evenodd",
+        clipRule: "evenodd",
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+        strokeMiterlimit: 1.5,
+      }}
+      viewBox="0 0 219 231"
+      {...props}
+    >
     <path
       d="M795.381 3313.22v151.46c0 21.02-17.999 38.1-40.17 38.1H607.898c-22.171 0-40.171-17.08-40.171-38.1v-151.46c0-21.03 18-38.1 40.171-38.1h147.313c22.171 0 40.17 17.07 40.17 38.1Z"
       style={{
@@ -137,6 +167,7 @@ const YourselfMan = (props: React.SVGProps<SVGSVGElement>) => (
       transform="matrix(.04953 .03324 -.03324 .04953 164.794 73.001)"
     />
     </g>
-  </svg>
-)
+    </svg>
+  )
+}
 export default YourselfMan

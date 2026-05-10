@@ -1,18 +1,64 @@
+"use client"
+
 import * as React from "react"
-const HeartMan = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    xmlSpace="preserve"
-    style={{
-      fillRule: "evenodd",
-      clipRule: "evenodd",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      strokeMiterlimit: 1.5,
-    }}
-    viewBox="0 0 219 231"
-    {...props}
-  >
+import { useEffect, useRef } from "react"
+import gsap from "gsap"
+
+const HeartMan = (props: React.SVGProps<SVGSVGElement>) => {
+  const svgRef = useRef<SVGSVGElement>(null)
+
+  useEffect(() => {
+    const heart = svgRef.current?.querySelector("#heart")
+
+    if (!heart) {
+      return
+    }
+
+    const tl = gsap.timeline({ repeat: -1 })
+
+    tl.to(heart, {
+      duration: 0.8,
+      scale: 0.075,
+      transformOrigin: "center center",
+    })
+      .to(heart, {
+        duration: 0.8,
+        scale: 0.06,
+        transformOrigin: "center center",
+      })
+      .add(gsap.delayedCall(0.3, () => {}))
+      .to(heart, {
+        duration: 1,
+        scale: 0.001,
+        transformOrigin: "bottom center",
+      })
+      .add(gsap.delayedCall(0.6, () => {}))
+      .to(heart, {
+        duration: 0.8,
+        scale: 0.06,
+        transformOrigin: "bottom center",
+      })
+
+    return () => {
+      tl.kill()
+    }
+  }, [])
+
+  return (
+    <svg
+      ref={svgRef}
+      xmlns="http://www.w3.org/2000/svg"
+      xmlSpace="preserve"
+      style={{
+        fillRule: "evenodd",
+        clipRule: "evenodd",
+        strokeLinecap: "round",
+        strokeLinejoin: "round",
+        strokeMiterlimit: 1.5,
+      }}
+      viewBox="0 0 219 231"
+      {...props}
+    >
     <path
       d="M795.381 3313.22v151.46c0 21.02-17.999 38.1-40.17 38.1H607.898c-22.171 0-40.171-17.08-40.171-38.1v-151.46c0-21.03 18-38.1 40.171-38.1h147.313c22.171 0 40.17 17.07 40.17 38.1Z"
       style={{
@@ -168,7 +214,7 @@ d="M578 1070
       }}
       transform="matrix(1 0 0 1 13 -2)"
     />
-
-  </svg>
-)
+    </svg>
+  )
+}
 export default HeartMan

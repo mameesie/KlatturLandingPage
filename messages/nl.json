@@ -21,5 +21,40 @@
     "somethingElseText":"Zit je ergens mee dat hier niet tussen past? Begin gewoon.",
     "extraText":"Kies wat er nu speelt. Doe een sessie. En kijk wat er daarna nog over is van die gedachte.",
     "button2":"Probeer nu"
+  },
+  "start": {
+    "back": "Naar startpagina",
+    "general": "Algemene sessie",
+    "sound": "Zet je geluid aan.",
+    "instructions": "Neem je tijd. Schriff je antwoorden op of onthoud ze, wat voor jou werkt. En terwijl je luistert en antwoord geeft: voel ook wat er gebeurt. Soms zegt je lichaam meer dan je hoofd.",
+    "play": "Speel nu af"
+  },
+  "contact": {
+    "session": "Sessie gedaan?",
+    "tellUs": "Vertel wat je vond",
+    "feedback": "Feedbackformulier",
+    "minute": "(1 minuut)",
+    "questions": "Heb je vragen of opmerkingen?",
+    "email": "Stuur een mail naar mireille@klattur.com"
+  }, 
+  "credits": {
+    "byron": "The Work© van Byron Katie",
+    "thought": "Het gedachtenonderzoek in Klattur is gebaseerd op The Work© van Byron Katie",
+    "theWork": "Byron Katie heeft The Work© voor iedereen beschikbaar gemaakt om te gebruiken.",
+    "info": "Meer informatie:",
+    "developed": "Klattur©  is ontwikkeld door:",
+    "official": "Klattur is niet officieel verbonden aan Byron Katie International."
+  },
+  "privacy": {
+    "respect": "Klattur respecteert je privacy.",
+    "data": "Welke gegevens verzamelen we?",
+    "feedback": "Als je feedback geeft of contact opneemt:",
+    "name": "- Naam en email (of anoniem)",
+    "message": "- Je bericht",
+    "use": "- We gebruiken dit om te reageren en Klattur verder te bouwen",
+    "tracking": "We gebruiken geen tracking cookies.",
+    "anonym": "Je kunt Klattur volledig anoniem gebruiken.",
+    "last": "Laatst bijgewerkt: 23/05/2026"
   }
+
 }

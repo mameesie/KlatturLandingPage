@@ -27,7 +27,7 @@ type AudioLanguage = {
 }
 
 function SessionPage() {
-  const [currentStep, setCurentStep] = useState<string>("intro");
+  const [currentStep, setCurrentStep] = useState<string>("intro");
   const audioCache = useRef<Record<string, AudioLanguage>>({});
   const { language } = useLanguageStore()
   useEffect(() => {
@@ -49,15 +49,15 @@ function SessionPage() {
     <div className="flex flex-col">
       <div className="flex  justify-between font-open-sans-regular text-white md:text-[18px] p-[15px]  md:px-[25px] md:pt-[40px]">
         <Link href="/" className="cursor-pointer">
-          ← Naar startpagina
+          ← {language === "nl" ? "Naar startpagina" :  "Back to home"}
         </Link>
-        <p>Algemene sessie</p>
+        <p>{language === "nl" ? "Algemene sessie" :  "General session"}</p>
       </div>
       <div className="flex flex-col items-center mt-[30px]">
       <BuzzMagnifier className="w-[60vw] ml-[min(8vw,50.5px)] max-w-[380px]" />
         {session.steps[currentStep].options.map((option, index) => (
           <button
-            onClick={() => {}}
+            onClick={() => {setCurrentStep(option.nextStepId); playStep(option.nextStepId)}}
             key={index}
             className=" cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular text-[19px] text-white flex items-center justify-center mt-[20px] rounded-[2000px] w-[180px] h-[60px] hover:scale-105 active:scale-100"
           >
