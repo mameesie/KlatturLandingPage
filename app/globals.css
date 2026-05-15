@@ -34,6 +34,14 @@
   color: #254C5C
 }
 
+.bg-tiles-green {
+  background-color: #7b9f2c;
+  background-image: url("/tegelsgroen.webp");
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: 1400px auto;
+}
+
 .volume-slider {
   -webkit-appearance: none;
   appearance: none;

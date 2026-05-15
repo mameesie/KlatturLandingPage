@@ -5,7 +5,8 @@ type LanguageOption = {
 
 type OptionNode = {
   label: LanguageOption;        // e.g. "Yes", "No", "Continue"
-  nextStepId: string;   // ID of the next step
+  nextStepId: string; 
+  icon?: React.ComponentType;  // ID of the next step
 };
 
 type SessionStep = {

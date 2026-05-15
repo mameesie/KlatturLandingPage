@@ -3,6 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import MouseBlob from "./components/MouseBlob";
 
 const no_name_reg = localFont({
   src: "../public/fonts/no_name_37_Regular.otf",
@@ -32,13 +33,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-  className={`${no_name_reg.variable} ${open_sans_semibold.variable} ${open_sans_regular.variable} antialiased bg-[#57730D]`}
+  className={`${no_name_reg.variable} ${open_sans_semibold.variable} ${open_sans_regular.variable} antialiased bg-tiles-green`} //bg-[#57730D]
 >
   <div className="relative min-h-screen flex flex-col">
     <Header />
+    <MouseBlob /> 
 
-    {/* Background grid */}
-    <div 
+    
+   
+{/* <div
   aria-hidden="true"
   className="absolute inset-0 -z-9 overflow-hidden pointer-events-none grid gap-x-6 gap-y-8 p-10"
   style={{
@@ -46,6 +49,8 @@ export default function RootLayout({
     gridTemplateRows: 'repeat(auto-fill, 480px)',
     columnGap: '60px',
     rowGap: '80px',
+    filter: 'blur(18px)',  // ✅ one blur instead of 200
+    willChange: 'transform',
   }}
 >
   {Array.from({ length: 200 }).map((_, i) => (
@@ -53,16 +58,17 @@ export default function RootLayout({
       key={i}
       className="w-[80px] h-[80px] rounded-3xl shrink-0 bg-[#f9ff4015]"
       style={{
-        filter: 'blur(18px)',
         marginTop:
           i % 5 === 0 ? '170px' :
           i % 3 === 0 ? '-20px' :
           i % 2 === 0 ? '140px' : '0px',
-        
+        // ❌ no filter here anymore
       }}
     />
   ))}
 </div>
+
+
 <div
   aria-hidden="true"
   className="absolute inset-0 -z-10 overflow-hidden pointer-events-none grid gap-x-6 gap-y-8 p-10"
@@ -70,24 +76,25 @@ export default function RootLayout({
     gridTemplateColumns: '370px 375px 360px 370px 360px 365px 370px 375px 365px 365px',
     gridTemplateRows: 'repeat(auto-fill, 380px)',
     marginLeft: '-50px',
-    
+    filter: 'blur(25px)',  // ✅ one blur
+    willChange: 'transform',
   }}
 >
-  {Array.from({ length: 2000 }).map((_, i) => (
+  {Array.from({ length: 100 }).map((_, i) => (  // ✅ 2000 → 100
     <div
       key={i}
       className="w-[350px] h-[350px] rounded-[70px] shrink-0"
       style={{
-        filter: 'blur(30px)',
         marginTop:
           i % 5 === 0 ? '170px' :
           i % 3 === 0 ? '-20px' :
           i % 2 === 0 ? '140px' : '0px',
         backgroundColor: '#62810E',
+        // ❌ no filter here anymore
       }}
     />
   ))}
-</div>
+</div> */}
 
     {/* Remove bg-[#85A425] from main — it's now on body */}
     <main className="flex-1 overflow-auto flex flex-col">
