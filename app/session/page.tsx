@@ -162,9 +162,9 @@ function SessionPage() {
         })}
         {currentStep === "whatIsOnYourMind" && (
           
-            <div className=" absolute flex justify-center w-[400px] h-[450px]  bg-[#9BCC8F98] translate-y-[-30px]">
+            <div className=" absolute flex justify-center w-[400px] h-[450px] rounded-[30px] bg-[#9bcc8fda] translate-y-[-30px]">
               <p className="pt-[18px] text-white font-no-name-regular text-[20px]">{language === "nl" ? "Kies waar je mee zit" : "Choose what's on your mind "}</p>
-              <p className={`text-[#13333E] absolute rotate-[-55deg] font-open-sans-regular font-bold  ${language === "nl" ? "text-[100px] translate-y-[140px]" : "text-[160px] translate-y-[90px]"} `}>{language === "nl" ? "Binnenkort" : "Soon"}</p>
+              <p className={`text-[#13333E] absolute rotate-[-40deg] font-open-sans-regular font-bold  ${language === "nl" ? "text-[50px] translate-y-[170px]" : "text-[80px] translate-y-[150px]"} `}>{language === "nl" ? "Binnenkort" : "Soon"}</p>
             </div>
          
         )}

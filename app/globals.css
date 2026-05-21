@@ -41,6 +41,28 @@
   background-position: top left;
   background-size: 1400px auto;
 }
+.bg-tiles-blue {
+  background-color: #2A4B52;
+  background-image: url("/donkerblauw.webp");
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: 1400px auto;
+}
+.bg-tiles-light-blue {
+  background-color: #8DB9BD;
+  background-image: url("/lichtblauw.webp");
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: 1400px auto;
+}
+
+body:has(.bg-tiles-blue) {
+  background-color: #2A4B52;
+}
+
+body:has(.bg-tiles-light-blue) {
+  background-color: #8DB9BD;
+}
 
 .volume-slider {
   -webkit-appearance: none;

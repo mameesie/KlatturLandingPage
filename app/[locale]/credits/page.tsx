@@ -4,7 +4,7 @@ import React from 'react'
 async function privacyPage() {
   const t  = await getTranslations("credits")
   return (
-    <div className='bg-[#8CB9BE] font-open-sans-regular flex-1 flex flex-col justify-center items-center md:items-start '>
+    <div className='bg-tiles-light-blue font-open-sans-regular flex-1 flex flex-col justify-center items-center md:items-start '>
       <div className='mx-[40px] md:ml-[120px] xl:ml-[240px]'>
         <p className='font-bold text-[#254c5c]'>Credits & Copyright</p> <br/>
         <div className='text-[#254c5c] ml-[50px] lg:leading-[35px]'>

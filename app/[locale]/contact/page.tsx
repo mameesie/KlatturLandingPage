@@ -5,7 +5,10 @@ async function ContactPage() {
   const t  = await getTranslations("contact")
 
   return (
-        <div className='bg-[#8CB9BE] flex-1 flex flex-col md:flex-row justify-between md:justify-center lg:justify-start items-center md:items-start '>
+
+      
+        
+        <div className='bg-tiles-blue flex-1 flex flex-col md:flex-row justify-between md:justify-center lg:justify-start items-center md:items-start '>
           
           <div className='md:order-2 flex justify-center items-center text-center text-[#254c5c] font-semibold font-open-sans-regular text-[18px] leading-[32px] rotate-[8deg] bg-[#8CD27A] w-[250px] h-[250px] rounded-[2000px] mt-[60px] md:mt-[140px] '>
           <p>
@@ -20,6 +23,10 @@ async function ContactPage() {
             {t('email')}
           </p>
           </div>
+        
+      
+
+
   )
 }
 

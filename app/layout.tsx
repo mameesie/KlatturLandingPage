@@ -30,6 +30,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <body
@@ -39,64 +40,6 @@ export default function RootLayout({
     <Header />
     <MouseBlob /> 
 
-    
-   
-{/* <div
-  aria-hidden="true"
-  className="absolute inset-0 -z-9 overflow-hidden pointer-events-none grid gap-x-6 gap-y-8 p-10"
-  style={{
-    gridTemplateColumns: '480px 520px 460px 400px 570px 410px 590px 475px 415px 465px',
-    gridTemplateRows: 'repeat(auto-fill, 480px)',
-    columnGap: '60px',
-    rowGap: '80px',
-    filter: 'blur(18px)',  // ✅ one blur instead of 200
-    willChange: 'transform',
-  }}
->
-  {Array.from({ length: 200 }).map((_, i) => (
-    <div
-      key={i}
-      className="w-[80px] h-[80px] rounded-3xl shrink-0 bg-[#f9ff4015]"
-      style={{
-        marginTop:
-          i % 5 === 0 ? '170px' :
-          i % 3 === 0 ? '-20px' :
-          i % 2 === 0 ? '140px' : '0px',
-        // ❌ no filter here anymore
-      }}
-    />
-  ))}
-</div>
-
-
-<div
-  aria-hidden="true"
-  className="absolute inset-0 -z-10 overflow-hidden pointer-events-none grid gap-x-6 gap-y-8 p-10"
-  style={{
-    gridTemplateColumns: '370px 375px 360px 370px 360px 365px 370px 375px 365px 365px',
-    gridTemplateRows: 'repeat(auto-fill, 380px)',
-    marginLeft: '-50px',
-    filter: 'blur(25px)',  // ✅ one blur
-    willChange: 'transform',
-  }}
->
-  {Array.from({ length: 100 }).map((_, i) => (  // ✅ 2000 → 100
-    <div
-      key={i}
-      className="w-[350px] h-[350px] rounded-[70px] shrink-0"
-      style={{
-        marginTop:
-          i % 5 === 0 ? '170px' :
-          i % 3 === 0 ? '-20px' :
-          i % 2 === 0 ? '140px' : '0px',
-        backgroundColor: '#62810E',
-        // ❌ no filter here anymore
-      }}
-    />
-  ))}
-</div> */}
-
-    {/* Remove bg-[#85A425] from main — it's now on body */}
     <main className="flex-1 overflow-auto flex flex-col">
       {children}
       <Footer />
