@@ -5,7 +5,7 @@ async function privacyPage() {
   const t  = await getTranslations("credits")
   return (
     <div className='bg-tiles-light-blue font-open-sans-regular flex-1 flex flex-col justify-center items-center md:items-start '>
-      <div className='mx-[40px] md:ml-[120px] xl:ml-[240px]'>
+      <div className='mx-[40px] mb-[100px] mt-[60px] sm:mt-[100px] md:ml-[120px] xl:ml-[240px]'>
         <p className='font-bold text-[#254c5c]'>Credits & Copyright</p> <br/>
         <div className='text-[#254c5c] ml-[50px] lg:leading-[35px]'>
                                         <div className='flex flex-col lg:flex-row lg:justify-between lg:items-start'>

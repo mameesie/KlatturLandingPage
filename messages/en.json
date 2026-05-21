@@ -55,6 +55,14 @@
     "tracking": "We don't use tracking cookies.",
     "anonym": "You can use Klattur fully anonymously.",
     "last": "Last updated: 23/05/2026"
+  }, 
+  "about": {
+    "about": "About",
+    "i-did": "At i-did, a social enterprise in The Hague, we've been working on workplace happiness and safety for years. Visitors feel it the moment they walk in. The team is a family. One important foundation for this is the method we use in coaching: The Work by Byron Katie. Four questions about a stressful thought.",
+    "young": "Many young people are experiencing mental stress right now. And this method, evidence-based and surprisingly simple, is barely known among them.",
+    "klattur": "And that became Klattur. For young people and anyone who wants a quieter mind."
+    
+
   }
 
 }
