@@ -1,5 +1,26 @@
 import { getTranslations } from 'next-intl/server'
 import React from 'react'
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+const t  = await getTranslations("privacy")
+  return {
+    title: t('meta-title'),
+    description: t('meta-description'),
+    alternates: {
+      canonical: `https://klattur.com/${params.locale}/privacy`,
+      languages: {
+        'en': 'https://klattur.com/en/privacy',
+        'nl': 'https://klattur.com/nl/privacy',
+      },
+    },
+    openGraph: {
+      title: t('meta-title'),
+      description: t('meta-description'),
+      url: `https://klattur.com/${params.locale}/privacy`,
+    },
+  }
+}
 
 async function privacyPage() {
 const t  = await getTranslations("privacy")

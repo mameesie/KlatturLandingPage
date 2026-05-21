@@ -6,28 +6,33 @@
     "button1": "Try it yourself",
     "howItWorks": "How does it work?",
     "howItWorksText": "Take a thought that’s been nagging you. Klattur walks you through it step by step,  audio-guided, at your own pace. You examine what that thought does to you. And most importantly, what’s left once you’ve checked it.",
-    "scienceBacked":  "Evidence-based",
+    "scienceBacked": "Evidence-based",
     "scienceBackedText": "Clinical research with nearly 200 participants found that people using this approach felt significantly less anxious, less low, and less angry and that this effect was still measurable six months later. A second study with a control group showed a significant reduction in burnout symptoms among those who followed the method. In short: it works. And many people notice a difference after just one session.",
     "whatIsOnYourMind": "What’s on your mind?",
-    "study":"Study or school",
-    "studyText":"Stress about a test, an assignment, or the feeling that you just can’t keep up.",
-    "relations":"Relationships",
-    "relationsText":"Something bothering you about your partner, a friend, your parents, or an ex.",
-    "work":"Work or colleagues",
-    "workText":"A thought about your manager, a colleague, or how you’re performing.",
-    "yourSelf":"About myself",
-    "yourSelfText":"A belief about who you are, how you look, or what you can or can’t do.",
-    "somethingElse":"Something else",
-    "somethingElseText":"Doesn’t fit any of the above? Just start.",
-    "extraText":"Pick what’s playing right now. Do a session. See what’s left of that thought afterwards.",
-    "button2":"Try now"
+    "study": "Study or school",
+    "studyText": "Stress about a test, an assignment, or the feeling that you just can’t keep up.",
+    "relations": "Relationships",
+    "relationsText": "Something bothering you about your partner, a friend, your parents, or an ex.",
+    "work": "Work or colleagues",
+    "workText": "A thought about your manager, a colleague, or how you’re performing.",
+    "yourSelf": "About myself",
+    "yourSelfText": "A belief about who you are, how you look, or what you can or can’t do.",
+    "somethingElse": "Something else",
+    "somethingElseText": "Doesn’t fit any of the above? Just start.",
+    "extraText": "Pick what’s playing right now. Do a session. See what’s left of that thought afterwards.",
+    "button2": "Try now",
+    "meta-title": "Klattur – Less mind clutter, more peace of mind",
+    "meta-description": "Ten minutes, one thought. Klattur guides you through stressful thoughts step by step — audio-guided, at your own pace. And watch how those thoughts disappear."
   },
+
   "start": {
     "back": "Back to home",
     "general": "General session",
     "sound": "Turn on your sound.",
     "instructions": "Take your time. Write down your answers or remember them, whatever works for you. And while you listen: notice what happens inside. Sometimes your body knows more than your head.",
-    "play": "Play"
+    "play": "Play",
+    "meta-title": "Start a session with Klattur",
+    "meta-description": "Our interactive session is a simple way to question stressful thoughts and see how they disappear."
   },
   "contact": {
     "session": "Session done?",
@@ -35,15 +40,19 @@
     "feedback": "Feedback form",
     "minute": "(1 minute)",
     "questions": "Questions or comments?",
-    "email": "Send an email to mireille@klattur.com"
-  }, 
+    "email": "Send an email to mireille@klattur.com",
+    "meta-title": "Contact Klattur",
+    "meta-description": "We like to learn from your experience. Get in touch."
+  },
   "credits": {
     "byron": "The Work© by Byron Katie",
     "thought": "The thought inquiry in Klattur is based on The Work by Byron Katie.",
     "theWork": "Byron Katie has made The Work freely available for everyone to use.",
     "info": "More information:",
     "developed": "Klattur is developed by:",
-    "official": "Klattur is not officially affiliated with Byron Katie International."
+    "official": "Klattur is not officially affiliated with Byron Katie International.",
+    "meta-title": "Credits Klattur",
+    "meta-description": "Klattur is built on The Work© by Byron Katie — a simple method for questioning stressful thoughts."
   },
   "privacy": {
     "respect": "Klattur respects your privacy.",
@@ -54,15 +63,16 @@
     "use": "- We use this to respond and to keep building Klattur",
     "tracking": "We don't use tracking cookies.",
     "anonym": "You can use Klattur fully anonymously.",
-    "last": "Last updated: 23/05/2026"
-  }, 
+    "last": "Last updated: 23/05/2026",
+    "meta-title": "Privacy Policy Klattur",
+    "meta-description": "Klattur takes your privacy seriously. We don't use tracking cookies."
+  },
   "about": {
     "about": "About",
     "i-did": "At i-did, a social enterprise in The Hague, we've been working on workplace happiness and safety for years. Visitors feel it the moment they walk in. The team is a family. One important foundation for this is the method we use in coaching: The Work by Byron Katie. Four questions about a stressful thought.",
     "young": "Many young people are experiencing mental stress right now. And this method, evidence-based and surprisingly simple, is barely known among them.",
-    "klattur": "And that became Klattur. For young people and anyone who wants a quieter mind."
-    
-
+    "klattur": "And that became Klattur. For young people and anyone who wants a quieter mind.",
+    "meta-title": "About Klattur",
+    "meta-description": "Learn more about Klattur, our mission, and our backstory."
   }
-
 }

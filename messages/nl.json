@@ -20,14 +20,18 @@
     "somethingElse":"Iets anders",
     "somethingElseText":"Zit je ergens mee dat hier niet tussen past? Begin gewoon.",
     "extraText":"Kies wat er nu speelt. Doe een sessie. En kijk wat er daarna nog over is van die gedachte.",
-    "button2":"Probeer nu"
+    "button2":"Probeer nu",
+    "meta-title": "Klattur - Minder mind clutter, meer rust in je hoofd",
+    "meta-description":"Tien minuten, één gedachte. Klattur begeleidt je stap voor stap door stressvolle gedachten — audio-begeleid, op jouw tempo. En zie hoe die gedachten verdwijnen."
   },
   "start": {
     "back": "Naar startpagina",
     "general": "Algemene sessie",
     "sound": "Zet je geluid aan.",
     "instructions": "Neem je tijd. Schriff je antwoorden op of onthoud ze, wat voor jou werkt. En terwijl je luistert en antwoord geeft: voel ook wat er gebeurt. Soms zegt je lichaam meer dan je hoofd.",
-    "play": "Speel nu af"
+    "play": "Speel nu af",
+    "meta-title": "Begin een sessie met Klattur",
+    "meta-description":"Onze interactieve sessie is een eenvoudige manier om stressvolle gedachten te onderzoeken en te zien hoe ze verdwijnen."
   },
   "contact": {
     "session": "Sessie gedaan?",
@@ -35,7 +39,9 @@
     "feedback": "Feedbackformulier",
     "minute": "(1 minuut)",
     "questions": "Heb je vragen of opmerkingen?",
-    "email": "Stuur een mail naar mireille@klattur.com"
+    "email": "Stuur een mail naar mireille@klattur.com",
+    "meta-title": "Contact Klattur",
+    "meta-description":"Heb je een vraag of feedback? We horen graag van je."
   }, 
   "credits": {
     "byron": "The Work© van Byron Katie",
@@ -43,7 +49,9 @@
     "theWork": "Byron Katie heeft The Work© voor iedereen beschikbaar gemaakt om te gebruiken.",
     "info": "Meer informatie:",
     "developed": "Klattur©  is ontwikkeld door:",
-    "official": "Klattur is niet officieel verbonden aan Byron Katie International."
+    "official": "Klattur is niet officieel verbonden aan Byron Katie International.",
+    "meta-title": "Credits Klattur",
+    "meta-description":"Klattur is gebaseerd op The Work© van Byron Katie — een eenvoudige methode om stressvolle gedachten te onderzoeken."
   },
   "privacy": {
     "respect": "Klattur respecteert je privacy.",
@@ -54,13 +62,17 @@
     "use": "- We gebruiken dit om te reageren en Klattur verder te bouwen",
     "tracking": "We gebruiken geen tracking cookies.",
     "anonym": "Je kunt Klattur volledig anoniem gebruiken.",
-    "last": "Laatst bijgewerkt: 23/05/2026"
+    "last": "Laatst bijgewerkt: 23/05/2026",
+    "meta-title": "Privacybeleid Klattur",
+    "meta-description":"Klattur neemt jouw privacy serieus. Wij gebruiken geen tracking cookies."
   },
   "about": {
     "about": "Over",
     "i-did": "Bij i-did, een sociale onderneming in Den Haag, werken we al jarenlang aan werkgeluk en veiligheid op de werkvloer. Bezoekers voelen het zodra ze binnenkomen. Het team is een familie. Een belangrijke basis daarvoor is de methode die we gebruiken als coaching: The Work van Byron Katie. Vier vragen aan een stressvolle gedachte.",
     "young": "Veel jongeren ervaren nu mentale stress. En deze methode, wetenschappelijk onderbouwd en verrassend simpel, is bij hen nauwelijks bekend.",
-    "klattur": "En dat werd Klattur. Voor jongeren en ieder ander die een rustiger hoofd wil."
+    "klattur": "En dat werd Klattur. Voor jongeren en ieder ander die een rustiger hoofd wil.",
+    "meta-title": "Over Klattur",
+    "meta-description":"Leer meer over Klattur, onze missie, en onze geschiedenis."
     
 
   }

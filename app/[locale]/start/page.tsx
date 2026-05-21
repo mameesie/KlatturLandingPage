@@ -3,6 +3,27 @@ import React from 'react'
 import { Link as I18nLink } from "@/i18n/routing"
 import Link from "next/link"
 import { getTranslations } from 'next-intl/server'
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+const t  = await getTranslations("start")
+  return {
+    title: t('meta-title'),
+    description: t('meta-description'),
+    alternates: {
+      canonical: `https://klattur.com/${params.locale}/start`,
+      languages: {
+        'en': 'https://klattur.com/en/start',
+        'nl': 'https://klattur.com/nl/start',
+      },
+    },
+    openGraph: {
+      title: t('meta-title'),
+      description: t('meta-description'),
+      url: `https://klattur.com/${params.locale}/start`,
+    },
+  }
+}
 async function StartPage() {
 const t  = await getTranslations("start")
   return (

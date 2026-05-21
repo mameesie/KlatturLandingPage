@@ -9,6 +9,27 @@ import SomethingElseMan from "@/public/SomthingElseMan";
 import YourselfMan from "@/public/YourselfMan";
 import { Link } from "@/i18n/routing"
 import { getTranslations } from 'next-intl/server'
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+const t  = await getTranslations("landing")
+  return {
+    title: t('meta-title'),
+    description: t('meta-description'),
+    alternates: {
+      canonical: `https://klattur.com/${params.locale}`,
+      languages: {
+        'en': 'https://klattur.com/en',
+        'nl': 'https://klattur.com/nl',
+      },
+    },
+    openGraph: {
+      title: t('meta-title'),
+      description: t('meta-description'),
+      url: `https://klattur.com/${params.locale}`,
+    },
+  }
+}
 
 async function  MainPage() {
   const t  = await getTranslations("landing")
