@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import BuzzBoos from "@/public/BuzzBoos";
 
 export const alt = "Klattur";
 export const size = {
@@ -13,6 +14,9 @@ export default async function OpenGraphImage() {
   const fontData = await readFile(
     path.join(process.cwd(), "public", "fonts", "Smooth_Circulars.otf"),
   );
+  const noNameData = await readFile(
+    path.join(process.cwd(), "public", "fonts", "no_name_37_Regular.otf"),
+  );
 
   return new ImageResponse(
     (
@@ -21,33 +25,69 @@ export default async function OpenGraphImage() {
           display: "flex",
           width: "100%",
           height: "100%",
-          padding: "64px",
-          background:
-            "linear-gradient(135deg, rgb(18, 53, 64) 0%, rgb(86, 113, 12) 48%, rgb(153, 204, 143) 100%)",
+          background: "#98BDBD",
           color: "white",
-          fontFamily: "SmoothCirculars",
         }}
       >
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
+            alignItems: "center",
             justifyContent: "space-between",
+            gap: "32px",
             width: "100%",
-            border: "2px solid rgba(255, 255, 255, 0.25)",
             borderRadius: "36px",
-            padding: "48px",
-            background: "rgba(18, 53, 64, 0.2)",
+            background: "#98BDBD",
           }}
         >
-          <div style={{ fontSize: 42, letterSpacing: 4, textTransform: "uppercase" }}>Klattur</div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "18px", maxWidth: "760px" }}>
-            <div style={{ fontSize: 78, fontWeight: 700, lineHeight: 1.05 }}>
-              Less mind clutter, more peace of mind
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              height: "100%",
+              flex: 1,
+            }}
+          >
+            <div
+              style={{
+                fontWeight: 700,
+                fontSize: 112,
+                letterSpacing: 1,
+                textTransform: "uppercase",
+                marginLeft: "60px",
+                marginTop: "148px",
+                fontFamily: "SmoothCirculars",
+              }}
+            >
+              Klattur
             </div>
-            <div style={{ fontSize: 32, lineHeight: 1.35, color: "rgba(255, 255, 255, 0.92)" }}>
-              Ten minutes. One thought. A guided way to examine stressful thoughts.
+            <div style={{ display: "flex", flexDirection: "column", width: "58vw" }}>
+              <div
+                style={{
+                  fontSize: 60,
+                  fontWeight: 700,
+                  marginBottom: "120px",
+                  fontFamily: "NoName",
+                  marginLeft: "60px",
+                  lineHeight: 1.05,
+                }}
+              >
+                Less mind clutter, more peace of mind
+              </div>
             </div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              width: "320px",
+              height: "320px",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <BuzzBoos style={{ marginRight: "240px", width: "125%", height: "158%" }} />
           </div>
         </div>
       </div>
@@ -58,6 +98,12 @@ export default async function OpenGraphImage() {
         {
           name: "SmoothCirculars",
           data: fontData,
+          style: "normal",
+          weight: 700,
+        },
+        {
+          name: "NoName",
+          data: noNameData,
           style: "normal",
           weight: 700,
         },
