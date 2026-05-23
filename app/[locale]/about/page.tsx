@@ -1,25 +1,17 @@
 import React from 'react'
 import { getTranslations } from 'next-intl/server'
 import { Metadata } from 'next'
+import { buildLocalizedMetadata } from "@/app/seo"
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-const t  = await getTranslations("about")
-  return {
-    title: t('meta-title'),
-    description: t('meta-description'),
-    alternates: {
-      canonical: `https://klattur.com/${params.locale}/about`,
-      languages: {
-        'en': 'https://klattur.com/en/about',
-        'nl': 'https://klattur.com/nl/about',
-      },
-    },
-    openGraph: {
-      title: t('meta-title'),
-      description: t('meta-description'),
-      url: `https://klattur.com/${params.locale}/about`,
-    },
-  }
+  const t = await getTranslations("about")
+
+  return buildLocalizedMetadata({
+    locale: params.locale,
+    title: t("meta-title"),
+    description: t("meta-description"),
+    pathname: "/about",
+  })
 }
 
 async function AboutPage() {

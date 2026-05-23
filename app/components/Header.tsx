@@ -13,6 +13,14 @@ function Header() {
   const [isMenuOut, setIsMenuOut] = useState(false)
   const headerRef = useRef<HTMLDivElement>(null)
 
+  useEffect(() => {
+    const localeFromPath = pathname.match(/^\/(nl|en)(?:\/|$)/)?.[1] as "nl" | "en" | undefined
+
+    if (localeFromPath && localeFromPath !== language) {
+      setLanguage(localeFromPath)
+    }
+  }, [language, pathname, setLanguage])
+
   function switchLanguage(lang: "nl" | "en") {
     setLanguage(lang)
     const newPath = pathname.replace(/^\/(nl|en)/, `/${lang}`)

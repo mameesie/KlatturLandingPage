@@ -10,25 +10,16 @@ import YourselfMan from "@/public/YourselfMan";
 import { Link } from "@/i18n/routing"
 import { getTranslations } from 'next-intl/server'
 import { Metadata } from 'next'
+import { buildLocalizedMetadata } from "../seo";
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-const t  = await getTranslations("landing")
-  return {
-    title: t('meta-title'),
-    description: t('meta-description'),
-    alternates: {
-      canonical: `https://klattur.com/${params.locale}`,
-      languages: {
-        'en': 'https://klattur.com/en',
-        'nl': 'https://klattur.com/nl',
-      },
-    },
-    openGraph: {
-      title: t('meta-title'),
-      description: t('meta-description'),
-      url: `https://klattur.com/${params.locale}`,
-    },
-  }
+  const t = await getTranslations("landing")
+
+  return buildLocalizedMetadata({
+    locale: params.locale,
+    title: t("meta-title"),
+    description: t("meta-description"),
+  })
 }
 
 async function  MainPage() {

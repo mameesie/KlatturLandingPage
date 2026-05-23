@@ -1,22 +1,22 @@
-type LanguageOption = {
+export type LanguageOption = {
   "nl": string;
   "en": string;
 }
 
-type OptionNode = {
+export type OptionNode = {
   label: LanguageOption;        // e.g. "Yes", "No", "Continue"
   nextStepId: string; 
-  icon?: React.ComponentType;  // ID of the next step
+  icon?: React.ComponentType<{ className?: string }>;  // ID of the next step
 };
 
-type SessionStep = {
+export type SessionStep = {
   id: string;
   audioFile: LanguageOption;    // path or filename, e.g. "/audio/intro.mp3"
   options: OptionNode[]; // 1 option = "Continue" button, 2+ = choice buttons
   isEnd?: boolean;      // true if this is a terminal node
 };
 
-type Session = {
+export type Session = {
   id: string;
   startStepId: string;
   steps: Record<string, SessionStep>;

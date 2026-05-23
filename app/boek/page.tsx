@@ -1,4 +1,13 @@
 import React from 'react'
+import type { Metadata } from "next"
+import { buildPageMetadata } from "../seo"
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Book coaching with Klattur",
+  description:
+    "Get in touch with Klattur to book coaching or request more information.",
+  pathname: "/boek",
+})
 
 function BoekPage() {
   return (

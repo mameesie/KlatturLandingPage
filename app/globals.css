@@ -18,6 +18,10 @@
   font-family: var(--font-open-sans-regular);
 }
 
+.font-smooth-circulars {
+  font-family: var(--font-smooth-circulars);
+}
+
 /* colors */
 .bg-tan {
   background-color: #F6EBE2;
