@@ -3,11 +3,16 @@ import { getTranslations } from 'next-intl/server'
 import { Metadata } from 'next'
 import { buildLocalizedMetadata } from "@/app/seo"
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+type PageProps = {
+  params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { locale } = await params
   const t = await getTranslations("about")
 
   return buildLocalizedMetadata({
-    locale: params.locale,
+    locale,
     title: t("meta-title"),
     description: t("meta-description"),
     pathname: "/about",
