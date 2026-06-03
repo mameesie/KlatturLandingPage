@@ -103,7 +103,6 @@ async function  MainPage() {
               description={t('relationsText')}
             />
           </div>
-
           <div className="flex flex-col lg:flex-row lg:justify-center">
             <WaarZitJeMeeCard
               illustration={WorkMan}

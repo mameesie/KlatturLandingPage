@@ -8,9 +8,11 @@ export default function VimeoAnimation() {
   const playerRef = useRef<Player | null>(null)
   const progressBarFillRef = useRef<HTMLDivElement | null>(null)
   const timestampRef = useRef<HTMLSpanElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
 
   const [hasStarted, setHasStarted] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [isFullscreen, setIsFullscreen] = useState(false)
   const [volume, setVolume] = useState(1)
   const [showVolumeSlider, setShowVolumeSlider] = useState(false)
   const [showControls, setShowControls] = useState(false)
@@ -20,6 +22,14 @@ export default function VimeoAnimation() {
   const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const progressBarRef = useRef<HTMLDivElement | null>(null)
   const isDraggingRef = useRef(false)
+
+  useEffect(() => {
+    const onFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement)
+    }
+    document.addEventListener('fullscreenchange', onFullscreenChange)
+    return () => document.removeEventListener('fullscreenchange', onFullscreenChange)
+  }, [])
 
   useEffect(() => {
     setIframeKey(k => k + 1)
@@ -150,7 +160,11 @@ export default function VimeoAnimation() {
   }
 
   const handleFullscreen = () => {
-    iframeRef.current?.requestFullscreen()
+    if (isFullscreen) {
+      document.exitFullscreen()
+    } else {
+      containerRef.current?.requestFullscreen()
+    }
   }
 
   const VolumeIcon = () => {
@@ -173,6 +187,7 @@ export default function VimeoAnimation() {
 
   return (
     <div
+      ref={containerRef}
       className="relative rounded-[35px] overflow-hidden"
       style={{ paddingTop: '56.25%' }}
       onMouseEnter={resetHideTimer}
@@ -270,9 +285,15 @@ export default function VimeoAnimation() {
               onClick={handleFullscreen}
               className="bg-transparent border-none text-white cursor-pointer p-0.5 flex items-center justify-center"
             >
-              <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
-                <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-              </svg>
+              {isFullscreen ? (
+                <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
+                  <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
+                  <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                </svg>
+              )}
             </button>
           </div>
         </>

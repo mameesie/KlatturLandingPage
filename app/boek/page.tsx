@@ -1,4 +1,3 @@
-import React from 'react'
 import type { Metadata } from "next"
 import { buildPageMetadata } from "../seo"
 
@@ -12,7 +11,8 @@ export const metadata: Metadata = buildPageMetadata({
 
 
 function BoekPage() {
- 
+
+
   return (
 
 
