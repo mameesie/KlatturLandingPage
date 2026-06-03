@@ -203,7 +203,9 @@ export default function VimeoAnimation() {
         key={iframeKey}
         ref={iframeRef}
         src="https://player.vimeo.com/video/1184349934?controls=0"
-        allow="autoplay; fullscreen; picture-in-picture"
+        title="Klattur introduction video"
+        allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+        referrerPolicy="strict-origin-when-cross-origin"
         className="absolute top-0 left-0 w-full h-full"
       />
 
