@@ -32,7 +32,7 @@ async function ContactPage() {
           <p>
             {t('session')} <br />
             {t('tellUs')}<br />
-            → <a href="" className='underline cursor-pointer'>{t('feedback')}</a><br />
+            → <a href="https://forms.gle/XHVgn981Hk4xsYzn9" className='underline cursor-pointer'>{t('feedback')}</a><br />
             {t('minute')}
           </p>
           </div>

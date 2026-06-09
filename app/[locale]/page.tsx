@@ -40,7 +40,7 @@ async function  MainPage() {
       </p>
       <div className="mx-[8vw] vimeo:w-[750px] vimeo:mx-auto vimeo:flex vimeo:justify-center">
         <div className="w-full aspect-video">
-          <VimeoAnimation />
+          <VimeoAnimation ln={t("vimeoLink")}/>
         </div>
       </div>
 

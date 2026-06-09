@@ -3,6 +3,7 @@
     "title1": "Minder mind clutter,",
     "title2": " meer rust in je hoofd",
     "subtitle": "Tien minuten. Eén gedachte",
+    "vimeoLink": "https://player.vimeo.com/video/1199694515",
     "button1": "Probeer het zelf",
     "howItWorks": "Hoe werkt het?",
     "howItWorksText": "Neem een gedachte die je dwars zit. Klattur bevraagt deze gedachte stap voor stap, met audio, in je eigen tempo. Je onderzoekt wat die gedachte met je doet. En vooral, wat er overblijft als je hem checkt.",
@@ -41,7 +42,8 @@
     "questions": "Heb je vragen of opmerkingen?",
     "email": "Stuur een mail naar mireille@klattur.com",
     "meta-title": "Contact Klattur",
-    "meta-description":"Heb je een vraag of feedback? We horen graag van je."
+    "meta-description":"Heb je een vraag of feedback? We horen graag van je.",
+    "feedbackLink":"https://forms.gle/XHVgn981Hk4xsYzn9"
   }, 
   "credits": {
     "byron": "The Work© van Byron Katie",

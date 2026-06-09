@@ -3,7 +3,14 @@
 import { useEffect, useRef, useState } from 'react'
 import Player from '@vimeo/player'
 
-export default function VimeoAnimation() {
+
+type VimeoAnimationProps = {
+  ln: string;
+};
+
+
+
+export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
   const iframeRef = useRef<HTMLIFrameElement | null>(null)
   const playerRef = useRef<Player | null>(null)
   const progressBarFillRef = useRef<HTMLDivElement | null>(null)
@@ -202,7 +209,7 @@ export default function VimeoAnimation() {
       <iframe
         key={iframeKey}
         ref={iframeRef}
-        src="https://player.vimeo.com/video/1184349934?controls=0"
+        src= {`${ln}?controls=0`}
         title="Klattur introduction video"
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         referrerPolicy="strict-origin-when-cross-origin"

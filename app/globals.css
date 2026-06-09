@@ -3,6 +3,15 @@
 
 
 
+.border-comet {
+  animation: comet 4s linear infinite;
+}
+@keyframes comet {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
 
 
 /* In globals.css */

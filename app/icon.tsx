@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import BuzzMagnifier from "@/public/BuzzMagnifier";
+import BuzzWithoutMagnifier from "@/public/BuzzWithoutMagnifier";
 
 export const size = {
   width: 32,
@@ -21,7 +21,7 @@ export default function Icon() {
           background: "transparent",
         }}
       >
-        <BuzzMagnifier style={{ width: "100%", height: "100%" }} />
+        <BuzzWithoutMagnifier style={{ width: "100%", height: "100%" }} />
       </div>
     ),
     size,

@@ -3,6 +3,7 @@
     "title1": "Less mind clutter,",
     "title2": " more peace of mind",
     "subtitle": "Ten minutes. One thought.",
+    "vimeoLink": "https://player.vimeo.com/video/1199687149",
     "button1": "Try it yourself",
     "howItWorks": "How does it work?",
     "howItWorksText": "Take a thought that’s been nagging you. Klattur walks you through it step by step,  audio-guided, at your own pace. You examine what that thought does to you. And most importantly, what’s left once you’ve checked it.",
@@ -42,7 +43,8 @@
     "questions": "Questions or comments?",
     "email": "Send an email to mireille@klattur.com",
     "meta-title": "Contact Klattur",
-    "meta-description": "We like to learn from your experience. Get in touch."
+    "meta-description": "We like to learn from your experience. Get in touch.",
+    "feedbackLink":"https://forms.gle/sehAomgQQ3oXqPtx8"
   },
   "credits": {
     "byron": "The Work© by Byron Katie",
