@@ -39,7 +39,7 @@ async function privacyPage() {
                                           <div className='lg:ml-[80px] xl:ml-[120px] max-w-[400px]'>
                                             <b>Klattur©</b> <br />
                                             {t('developed')}<br />
-                                            Mireille Geijsen Ontwerper Bv | 2025<br /><br />
+                                            Mireille Geijsen Ontwerper Bv<br /><br />
                                             {t('official')} <br /> <br />
                                             Copyright © {new Date().getFullYear()} Klattur
                                           </div>

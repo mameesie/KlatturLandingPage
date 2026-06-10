@@ -40,13 +40,13 @@ function Header() {
   }, [])
 
   return (
-    <div ref={headerRef} className="flex flex-col h-[100px] bg-white sticky top-0 items-center z-20">
+    <div ref={headerRef} className="header flex flex-col h-[100px] bg-white sticky top-0 items-center z-20">
       
       <div className="flex items-center justify-between h-[100px] w-full">
         <Link onClick={() => setIsMenuOut(false)} href={`/${language}`} className="w-[120px] mx-[8px]"><KlatturLogo/></Link>
         <p className="font-no-name-regular text-[2.5vw] hidden xxxs:block xxs:text-[3vw] xs:text-[14px] lg:text-[16px] text-[#56710C]">
           {language === "nl" ? "Early acces versie. Help ons" : "Early access version. Help"} <br className="sm:hidden"/>
-          {language === "nl" ? "bouwen" : "us build"} → <a onClick={() => setIsMenuOut(false)} className="cursor-pointer underline">{language === "nl" ? "Vertel het ons" : "Tell us"}</a>
+          {language === "nl" ? "bouwen" : "us build"} → <a href={language === "nl" ? "https://forms.gle/XHVgn981Hk4xsYzn9" : "https://forms.gle/sehAomgQQ3oXqPtx8"} onClick={() => setIsMenuOut(false)} className="cursor-pointer underline">{language === "nl" ? "Vertel het ons" : "Tell us"}</a>
         </p>
         <div className="flex mx-[28px]">
           {!isMenuOut && (

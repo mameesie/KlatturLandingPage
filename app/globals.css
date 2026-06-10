@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
 
-
+header {
+  background-color: #ffffff;
+  padding-top: env(safe-area-inset-top);
+}
 
 .border-comet {
   animation: comet 4s linear infinite;

@@ -190,7 +190,7 @@ const session: Session = {
         },
         17: {
             id: "17",
-            audioFile: { nl: "17__Stress_of_rust.m4a", en: "17_Stress_or_peace_2.m4a" },
+            audioFile: { nl: "17__Stress_of_rust.m4a", en: "17_stress_or_peace_2.m4a" },
             options: [{
                     label: { nl: "Stress", en: "Stress" },
                     nextStepId: "18",
@@ -480,7 +480,7 @@ return (
       disabled={!option.nextStepId || !session.steps[option.nextStepId]}
     >
       {option.icon && (
-        <option.icon className="h-[20px] max-w-[22px] translate-x-[18px] translate-y-[5px] absolute" />
+        <option.icon className="h-[20px] max-w-[22px] translate-x-[-110px] absolute" />
       )}
       {option.label[language]}
     </button>
