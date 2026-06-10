@@ -29,6 +29,7 @@ const smooth_circulars = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  themeColor: '#ffffff',
   title: DEFAULT_TITLE,
   description: DEFAULT_DESCRIPTION,
   applicationName: SITE_NAME,

@@ -445,10 +445,11 @@ const T = 6; // border thickness — bump this to make the rotating border wider
 
 return (
   <div
-    className={`relative cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular text-[19px] text-white flex items-center justify-center ${isFirst ? "mt-[40px]" : "mt-[20px]"}  rounded-[2000px] ${currentStep === "whatIsOnYourMind" ? "w-[280px]" : "w-[180px]"} h-[60px] hover:scale-105 active:scale-100`}
+    className={`relative cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular text-[19px] text-white flex items-center justify-center ${isFirst ? "mt-[40px]" : "mt-[20px]"} rounded-[2000px] ${currentStep === "whatIsOnYourMind" && isLast && "mb-[80px]"}  ${currentStep === "whatIsOnYourMind" ? "w-[280px]" : "w-[180px]"} h-[60px] hover:scale-105 active:scale-100`}
     key={index}
   >
-{audioDone && !(currentStep === "whatIsOnYourMind") && (
+    {/*de knop border animatie toch weggelaten*/}
+{/*{audioDone && !(currentStep === "whatIsOnYourMind") && (
   <svg
     width={W}
     height={H}
@@ -469,7 +470,7 @@ return (
       className="border-comet"
     />
   </svg>
-)}
+)}*/}
 
     <button
       className="z-10 rounded-[2000px]   flex items-center justify-center"
@@ -487,7 +488,7 @@ return (
 );
         })}
 
-   {(currentStep !== "whatIsOnYourMind") && (currentStep !== "einde") && <div className="bg-[#13333E] text-white rounded-[2000px] p-[10px] mt-[20px] mb-[80px]"> {currentStep} / 25 </div>}
+   {(currentStep !== "whatIsOnYourMind") && (currentStep !== "einde") && <div className="bg-[#13333E] text-white rounded-[2000px] p-[10px] mt-[40px] mb-[80px]"> {currentStep} / 25 </div>}
 
 
         {currentStep === "whatIsOnYourMind" && (
