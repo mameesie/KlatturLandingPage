@@ -6,6 +6,20 @@ header {
   padding-top: env(safe-area-inset-top);
 }
 
+
+
+/*animation breathing button*/
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+
+.animate-breathe {
+  animation: breathe 4.5s ease-in-out infinite;
+}
+
+
+/*animation border line*/
 .border-comet {
   animation: comet 4s linear infinite;
 }

@@ -445,7 +445,7 @@ const T = 6; // border thickness — bump this to make the rotating border wider
 
 return (
   <div
-    className={`relative cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular text-[19px] text-white flex items-center justify-center ${isFirst ? "mt-[40px]" : "mt-[20px]"} rounded-[2000px] ${currentStep === "whatIsOnYourMind" && isLast && "mb-[80px]"}  ${currentStep === "whatIsOnYourMind" ? "w-[280px]" : "w-[180px]"} h-[60px] hover:scale-105 active:scale-100`}
+    className={`relative cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular text-[19px] text-white flex items-center justify-center ${isFirst ? "mt-[40px]" : "mt-[20px]"} rounded-[2000px] ${currentStep === "whatIsOnYourMind" && isLast && "mb-[80px]"}  ${currentStep === "whatIsOnYourMind" ? "w-[280px]" : "w-[180px]"} h-[60px] ${audioDone && "animate-breathe"} hover:scale-105 active:scale-100 `}
     key={index}
   >
     {/*de knop border animatie toch weggelaten*/}
@@ -473,14 +473,14 @@ return (
 )}*/}
 
     <button
-      className="z-10 rounded-[2000px]   flex items-center justify-center"
+      className="z-10 rounded-[2000px]   flex items-center justify-center cursor-pointer"
       style={{ width: W - 2 * T, height: H - 2 * T }}
       onClick={() => handleOptionClick(option.nextStepId)}
       key={index}
       disabled={!option.nextStepId || !session.steps[option.nextStepId]}
     >
       {option.icon && (
-        <option.icon className="h-[20px] max-w-[22px] translate-x-[-110px] absolute" />
+        <option.icon className="h-[20px] max-w-[22px] translate-x-[-110px]  absolute" />
       )}
       {option.label[language]}
     </button>
