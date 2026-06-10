@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-export const SITE_URL = "https://klattur.com";
+export const SITE_URL = "https://www.klattur.com";
 export const SITE_NAME = "Klattur";
 export const DEFAULT_TITLE = "Klattur - Less mind clutter, more peace of mind";
 export const DEFAULT_DESCRIPTION =
