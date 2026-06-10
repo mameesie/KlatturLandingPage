@@ -50,12 +50,12 @@ const session: Session = {
                 },
                 {
                     label: { nl: "Ga verder", en: "Continue" },
-                    nextStepId: "intro",
+                    nextStepId: "1",
                 },
             ],
         },
-        intro: {
-            id: "intro",
+        1: {
+            id: "1",
             audioFile: { nl: "01_Intro.m4a", en: "01_Hi_welcome_to_klattur.m4a" },
             options: [{
                 label: { nl: "Ga verder", en: "Continue" },
@@ -445,7 +445,7 @@ const T = 6; // border thickness — bump this to make the rotating border wider
 
 return (
   <div
-    className={`relative cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular text-[19px] text-white flex items-center justify-center ${isFirst ? "mt-[40px]" : "mt-[20px]"} ${isLast && "mb-[80px]"} rounded-[2000px] ${currentStep === "whatIsOnYourMind" ? "w-[280px]" : "w-[180px]"} h-[60px] hover:scale-105 active:scale-100`}
+    className={`relative cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular text-[19px] text-white flex items-center justify-center ${isFirst ? "mt-[40px]" : "mt-[20px]"}  rounded-[2000px] ${currentStep === "whatIsOnYourMind" ? "w-[280px]" : "w-[180px]"} h-[60px] hover:scale-105 active:scale-100`}
     key={index}
   >
 {audioDone && !(currentStep === "whatIsOnYourMind") && (
@@ -486,6 +486,10 @@ return (
   </div>
 );
         })}
+
+   {(currentStep !== "whatIsOnYourMind") && (currentStep !== "einde") && <div className="bg-[#13333E] text-white rounded-[2000px] p-[10px] mt-[20px] mb-[80px]"> {currentStep} / 25 </div>}
+
+
         {currentStep === "whatIsOnYourMind" && (
           
             <div className="z-11 absolute flex justify-center w-[400px] h-[460px] rounded-[30px] bg-[#9bcc8fda] translate-y-[-30px]">
