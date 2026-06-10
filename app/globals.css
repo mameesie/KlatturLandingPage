@@ -1,10 +1,7 @@
 @import "tailwindcss";
 
 
-header {
-  background-color: #ffffff;
-  padding-top: env(safe-area-inset-top);
-}
+
 
 
 
@@ -65,34 +62,35 @@ header {
 }
 
 .bg-tiles-green {
-  background-color: #7b9f2c;
+  /*background-color: #7b9f2c;*/
+  background-color: #254D5D;
   background-image: url("/tegelsgroen.webp");
   background-repeat: repeat;
   background-position: top left;
   background-size: 1400px auto;
 }
 .bg-tiles-blue {
-  background-color: #2A4B52;
+  /*background-color: #2A4B52;*/
   background-image: url("/donkerblauw.webp");
   background-repeat: repeat;
   background-position: top left;
   background-size: 1400px auto;
 }
 .bg-tiles-light-blue {
-  background-color: #8DB9BD;
+  /*background-color: #8DB9BD;*/
   background-image: url("/lichtblauw.webp");
   background-repeat: repeat;
   background-position: top left;
   background-size: 1400px auto;
 }
 
-body:has(.bg-tiles-blue) {
+/*body:has(.bg-tiles-blue) {
   background-color: #2A4B52;
 }
 
 body:has(.bg-tiles-light-blue) {
   background-color: #8DB9BD;
-}
+}*/
 
 .volume-slider {
   -webkit-appearance: none;
