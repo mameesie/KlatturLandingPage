@@ -366,10 +366,14 @@ function togglePlayPause() {
   const track = activeAudio.current;
   // Nothing has played yet → start the current step's audio.
   if (!track) {
+    setAudioDone(false)
     playStep(currentStep);
+
     return;
   }
   if (track.paused) {
+    setAudioDone(false)
+
     track
       .play()
       .then(() => setIsPlaying(true))
@@ -405,7 +409,7 @@ function togglePlayPause() {
         <p>{language === "nl" ? "Algemene sessie" : "General session"}</p>
       </div>
       <div className="flex flex-col items-center mt-[30px]">
-        {session.steps[currentStep].isEnd ? <BuzzDone className="w-[60vw] ml-[min(8vw,50.5px)] max-w-[380px] md:mb-[200px]"/> : !(currentStep === "whatIsOnYourMind") && <BuzzMagnifierMove className={`w-[60vw] ml-[min(8vw,50.5px)] max-w-[380px]`} />  }
+        {session.steps[currentStep].isEnd ? <BuzzDone className="w-[60vw] ml-[min(8vw,50.5px)] max-w-[380px] md:mb-[200px]"/> : !(currentStep === "whatIsOnYourMind") && <BuzzMagnifierMove isPlaying={isPlaying} className={`w-[60vw] ml-[min(8vw,50.5px)] max-w-[380px]`} />  }
         
         {!session.steps[currentStep].isEnd && !(currentStep === "whatIsOnYourMind") && (
           
@@ -444,26 +448,28 @@ return (
     className={`relative cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular text-[19px] text-white flex items-center justify-center ${isFirst ? "mt-[40px]" : "mt-[20px]"} ${isLast && "mb-[80px]"} rounded-[2000px] ${currentStep === "whatIsOnYourMind" ? "w-[280px]" : "w-[180px]"} h-[60px] hover:scale-105 active:scale-100`}
     key={index}
   >
-    <svg
-      width={W}
-      height={H}
-      viewBox={`0 0 ${W} ${H}`}
-      fill="none"
-      className="absolute inset-0 pointer-events-none"
-    >
-      <rect
-        x={T / 2}
-        y={T / 2}
-        width={W - T}
-        height={H - T}
-        rx={(H - T) / 2}        /* stays a stadium; outer edge lands on the wrapper edge */
-        stroke="#6B9BC7"
-        strokeWidth={T}
-        pathLength="100"
-        strokeDasharray="22 78"
-        className="border-comet"
-      />
-    </svg>
+{audioDone && !(currentStep === "whatIsOnYourMind") && (
+  <svg
+    width={W}
+    height={H}
+    viewBox={`0 0 ${W} ${H}`}
+    fill="none"
+    className="absolute inset-0 pointer-events-none"
+  >
+    <rect
+      x={T / 2}
+      y={T / 2}
+      width={W - T}
+      height={H - T}
+      rx={(H - T) / 2}
+      stroke="#6B9BC7"
+      strokeWidth={T}
+      pathLength="100"
+      strokeDasharray="22 78"
+      className="border-comet"
+    />
+  </svg>
+)}
 
     <button
       className="z-10 rounded-[2000px]   flex items-center justify-center"

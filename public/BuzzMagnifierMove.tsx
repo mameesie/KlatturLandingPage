@@ -1,18 +1,21 @@
+
 "use client"
 
 import * as React from "react"
 import { useEffect, useRef } from "react"
 import gsap from "gsap"
 
-const BuzzMagnifierMove = (props: React.SVGProps<SVGSVGElement>) => {
+interface BuzzMagnifierMoveProps extends React.SVGProps<SVGSVGElement> {
+  isPlaying?: boolean
+}
+
+const BuzzMagnifierMove = ({ isPlaying = false, ...props }: BuzzMagnifierMoveProps) => {
   const svgRef = useRef<SVGSVGElement>(null)
+  const animationRef = useRef<gsap.core.Tween | null>(null)
 
   useEffect(() => {
     const magnifier = svgRef.current?.querySelector("#magnifier")
-
-    if (!magnifier) {
-      return
-    }
+    if (!magnifier) return
 
     const animation = gsap.to(magnifier, {
       y: -100,
@@ -20,14 +23,29 @@ const BuzzMagnifierMove = (props: React.SVGProps<SVGSVGElement>) => {
       ease: "power1.inOut",
       yoyo: true,
       repeat: -1,
+      paused: true, // don't auto-run; audio state controls it
     })
+    animationRef.current = animation
 
     return () => {
       animation.kill()
+      animationRef.current = null
     }
   }, [])
 
+  // Pause in place when audio stops/pauses, resume when it plays
+  useEffect(() => {
+    const animation = animationRef.current
+    if (!animation) return
+    if (isPlaying) {
+      animation.play()
+    } else {
+      animation.pause()
+    }
+  }, [isPlaying])
+
   return (
+
     <svg
       ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
