@@ -132,23 +132,35 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
   // Do NOT await anything before play() — awaiting other promises first can
   // invalidate the user-gesture token on mobile browsers, causing muted/blocked playback.
   // Call setMuted(false) within the same gesture to ensure audio plays on mobile.
+const playRetryTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+const stopPlayRetry = () => {
+  if (playRetryTimerRef.current) {
+    clearInterval(playRetryTimerRef.current)
+    playRetryTimerRef.current = null
+  }
+}
+
 const togglePlay = () => {
   const p = playerRef.current
   if (!p) return
   if (isPlaying) {
+    stopPlayRetry()
     p.pause().catch(() => {})
   } else {
-    // p.setMuted(false).catch(() => {})
-      p.play()
-      .then(() => console.log('[vimeo] play() resolved'))
-      .catch((err: Error) => console.log('[vimeo] play() rejected:', err.name, err.message))
-    const retry = () => {
-      p.off('bufferend', retry)
+    p.setMuted(false).catch(() => {})
+    p.play().catch(() => {})
+
+    stopPlayRetry()
+    let attempts = 0
+    playRetryTimerRef.current = setInterval(() => {
+      attempts += 1
+      if (attempts > 12) { stopPlayRetry(); return }
       p.getPaused().then((paused) => {
-        if (paused) p.play().catch(() => {})
-      }).catch(() => {})
-    }
-    p.on('bufferend', retry)
+        if (!paused) { stopPlayRetry(); return }
+        p.play().catch(() => {})
+      }).catch(() => stopPlayRetry())
+    }, 800)
   }
   resetHideTimer()
 }
