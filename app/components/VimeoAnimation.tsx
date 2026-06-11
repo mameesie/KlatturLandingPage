@@ -30,11 +30,16 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [showControls, setShowControls] = useState(false)
   const [iframeKey, setIframeKey] = useState(0)
+  // iOS: retried play() (no user gesture) is only allowed muted.
+  // When that happens we show a "tap for sound" button — a real tap
+  // is a fresh gesture, and gesture-driven unmute always works.
+  const [needsUnmute, setNeedsUnmute] = useState(false)
 
   const durationRef = useRef(0)
   const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const progressBarRef = useRef<HTMLDivElement | null>(null)
   const isDraggingRef = useRef(false)
+  const playRetryTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   // Listen for both standard and webkit-prefixed fullscreen changes,
   // and also handle the Vimeo player's own fullscreen event (iPhone fallback)
@@ -77,6 +82,21 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
     return `${m}:${s}`
   }
 
+  const stopPlayRetry = () => {
+    if (playRetryTimerRef.current) {
+      clearInterval(playRetryTimerRef.current)
+      playRetryTimerRef.current = null
+    }
+  }
+
+  // Check whether the player is actually muted and show/hide the
+  // "tap for sound" button accordingly.
+  const syncMutedState = (p: Player) => {
+    p.getMuted()
+      .then((muted) => setNeedsUnmute(muted))
+      .catch(() => {})
+  }
+
   useEffect(() => {
     if (!iframeRef.current) return
 
@@ -87,10 +107,6 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
 
     const initPlayer = () => {
       const player = new Player(iframe)
-      player.on('bufferstart', () => console.log('[vimeo] bufferstart'))
-      player.on('bufferend',   () => console.log('[vimeo] bufferend'))
-      player.on('playing',     () => console.log('[vimeo] playing'))
-      player.on('error', (e) => console.log('[vimeo] error', e))
       playerRef.current = player
 
       player.ready().then(() => {
@@ -103,7 +119,17 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
         setHasStarted(true)
         setIsPlaying(true)
       })
-      player.on('pause', () => setIsPlaying(false))
+      player.on('playing', () => {
+        stopPlayRetry()
+        // Optimistic unmute: on some iOS versions this works because the
+        // original tap primed the element. Then verify what actually happened.
+        player.setMuted(false).catch(() => {})
+        syncMutedState(player)
+      })
+      player.on('pause', () => {
+        stopPlayRetry()
+        setIsPlaying(false)
+      })
       player.on('timeupdate', (data) => {
         if (progressBarFillRef.current) {
           progressBarFillRef.current.style.width = `${data.percent * 100}%`
@@ -123,6 +149,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
     iframe.addEventListener('load', initPlayer, { once: true })
 
     return () => {
+      stopPlayRetry()
       iframe.removeEventListener('load', initPlayer)
       playerRef.current?.destroy()
       playerRef.current = null
@@ -131,39 +158,43 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
 
   // Do NOT await anything before play() — awaiting other promises first can
   // invalidate the user-gesture token on mobile browsers, causing muted/blocked playback.
-  // Call setMuted(false) within the same gesture to ensure audio plays on mobile.
-const playRetryTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const togglePlay = () => {
+    const p = playerRef.current
+    if (!p) return
+    if (isPlaying) {
+      stopPlayRetry()
+      p.pause().catch(() => {})
+    } else {
+      // Unmute within the user gesture (works on desktop / Android;
+      // iOS may override it, which the unmute button then handles)
+      p.setMuted(false).catch(() => {})
+      p.play().catch(() => {})
 
-const stopPlayRetry = () => {
-  if (playRetryTimerRef.current) {
-    clearInterval(playRetryTimerRef.current)
-    playRetryTimerRef.current = null
+      // Mobile: the first play() often only "wakes" the player and stalls
+      // in buffering. Keep retrying until playback actually starts.
+      stopPlayRetry()
+      let attempts = 0
+      playRetryTimerRef.current = setInterval(() => {
+        attempts += 1
+        if (attempts > 12) { stopPlayRetry(); return }
+        p.getPaused().then((paused) => {
+          if (!paused) { stopPlayRetry(); return }
+          p.play().catch(() => {})
+        }).catch(() => stopPlayRetry())
+      }, 800)
+    }
+    resetHideTimer()
   }
-}
 
-const togglePlay = () => {
-  const p = playerRef.current
-  if (!p) return
-  if (isPlaying) {
-    stopPlayRetry()
-    p.pause().catch(() => {})
-  } else {
-    p.setMuted(false).catch(() => {})
-    p.play().catch(() => {})
-
-    stopPlayRetry()
-    let attempts = 0
-    playRetryTimerRef.current = setInterval(() => {
-      attempts += 1
-      if (attempts > 12) { stopPlayRetry(); return }
-      p.getPaused().then((paused) => {
-        if (!paused) { stopPlayRetry(); return }
-        p.play().catch(() => {})
-      }).catch(() => stopPlayRetry())
-    }, 800)
+  const handleUnmute = () => {
+    const p = playerRef.current
+    if (!p) return
+    // This runs inside a real tap — gesture-driven unmute is always allowed.
+    p.setMuted(false)
+      .then(() => syncMutedState(p))
+      .catch(() => syncMutedState(p))
+    resetHideTimer()
   }
-  resetHideTimer()
-}
 
   const seekToPosition = async (clientX: number) => {
     if (!playerRef.current || !progressBarRef.current) return
@@ -288,6 +319,18 @@ const togglePlay = () => {
           <svg viewBox="0 0 24 24" fill="white" width="48%">
             <polygon points="8,5 19,12 8,19" />
           </svg>
+        </button>
+      )}
+
+      {hasStarted && needsUnmute && (
+        <button
+          onClick={handleUnmute}
+          className="absolute top-4 right-4 z-10 bg-[#13333E]/90 hover:bg-[#254c5c] text-white text-[13px] rounded-full border-none cursor-pointer flex items-center gap-2 px-4 py-2"
+        >
+          <svg viewBox="0 0 24 24" fill="white" width="16" height="16">
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+          </svg>
+          Tap for sound
         </button>
       )}
 
