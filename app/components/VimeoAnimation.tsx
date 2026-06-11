@@ -19,6 +19,8 @@ interface WebkitHTMLElement extends HTMLDivElement {
 }
 
 export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
+const userPausedRef = useRef(false)
+
   const iframeRef = useRef<HTMLIFrameElement | null>(null)
   const playerRef = useRef<Player | null>(null)
   const progressBarFillRef = useRef<HTMLDivElement | null>(null)
@@ -127,7 +129,6 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
         syncMutedState(player)
       })
       player.on('pause', () => {
-        stopPlayRetry()
         setIsPlaying(false)
       })
       player.on('timeupdate', (data) => {
@@ -158,33 +159,31 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
 
   // Do NOT await anything before play() — awaiting other promises first can
   // invalidate the user-gesture token on mobile browsers, causing muted/blocked playback.
-  const togglePlay = () => {
-    const p = playerRef.current
-    if (!p) return
-    if (isPlaying) {
-      stopPlayRetry()
-      p.pause().catch(() => {})
-    } else {
-      // Unmute within the user gesture (works on desktop / Android;
-      // iOS may override it, which the unmute button then handles)
-      p.setMuted(false).catch(() => {})
-      p.play().catch(() => {})
+const togglePlay = () => {
+  const p = playerRef.current
+  if (!p) return
+  if (isPlaying) {
+    userPausedRef.current = true
+    stopPlayRetry()
+    p.pause().catch(() => {})
+  } else {
+    userPausedRef.current = false
+    p.setMuted(false).catch(() => {})
+    p.play().catch(() => {})
 
-      // Mobile: the first play() often only "wakes" the player and stalls
-      // in buffering. Keep retrying until playback actually starts.
-      stopPlayRetry()
-      let attempts = 0
-      playRetryTimerRef.current = setInterval(() => {
-        attempts += 1
-        if (attempts > 12) { stopPlayRetry(); return }
-        p.getPaused().then((paused) => {
-          if (!paused) { stopPlayRetry(); return }
-          p.play().catch(() => {})
-        }).catch(() => stopPlayRetry())
-      },800)
-    }
-    resetHideTimer()
+    stopPlayRetry()
+    let attempts = 0
+    playRetryTimerRef.current = setInterval(() => {
+      attempts += 1
+      if (attempts > 12 || userPausedRef.current) { stopPlayRetry(); return }
+      p.getPaused().then((paused) => {
+        if (!paused) { stopPlayRetry(); return }
+        p.play().catch(() => {})
+      }).catch(() => stopPlayRetry())
+    }, 800)
   }
+  resetHideTimer()
+}
 
   const handleUnmute = () => {
     const p = playerRef.current
