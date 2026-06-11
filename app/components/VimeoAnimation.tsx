@@ -130,7 +130,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
             // now-buffered opening.
             log('muted playback -> pause + show overlay')
             userPausedRef.current = true
-            player.pause().catch(() => {})
+            player.pause().catch(() => {player.play()})
             setNeedsSoundTap(true)
           } else {
             // Real sound is playing — make sure the overlay is hidden.
@@ -140,6 +140,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
       })
       player.on('pause', () => {
         log('evt: pause')
+        togglePlay()
         setIsPlaying(false)
         const sincePlaying = Date.now() - playingAtRef.current
         // An involuntary pause right after playback started = iOS blocking
