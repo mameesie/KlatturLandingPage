@@ -116,6 +116,16 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
         .then(() => {
           log('player ready')
           player.getDuration().then((d) => { durationRef.current = d })
+          // Preload/prime: play muted (allowed without gesture) to buffer the
+          // opening, then pause + reset. With data already buffered, a later
+          // user tap can start playback instantly while the gesture is still
+          // live — the only way unmuted-from-first-frame can work on iOS.
+          player.setMuted(true)
+            .then(() => player.play())
+            .then(() => player.pause())
+            .then(() => player.setCurrentTime(0))
+            .then(() => log('preloaded/primed'))
+            .catch((e: Error) => log(`prime err ${e.name}`))
         })
         .catch((e) => log(`ready err ${e?.name}`))
 
@@ -197,8 +207,12 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
     } else {
       log('togglePlay -> play')
       userPausedRef.current = false
-      // Do NOT unmute here — the one-shot unmute in the 'playing' handler is
-      // the single attempt point, with iOS recovery wired to the pause event.
+      // Opening is preloaded, so attempt unmuted playback within this gesture.
+      // Keep setMuted + play back-to-back with no awaits between, to preserve
+      // the user-activation. Mark triedUnmute so the 'playing' handler won't
+      // re-attempt; if iOS still pauses, the pause handler recovers to muted.
+      triedUnmuteRef.current = true
+      p.setMuted(false).catch(() => {})
       p.play()
         .then(() => log('play() resolved'))
         .catch((e: Error) => log(`play() rej ${e.name}`))
