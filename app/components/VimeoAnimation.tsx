@@ -141,7 +141,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
       player.on('pause', () => {
         log('evt: pause')
         
-          handleTapToPlay()
+        
           
       
 
@@ -297,7 +297,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
     }
   }
 
-  const src = `${ln}${ln.includes('?') ? '&' : '?'}controls=0&playsinline=1`
+  const src = `${ln}${ln.includes('?') ? '&' : '?'}playsinline=1`
 
   return (
     <div
@@ -338,7 +338,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
       )}
 
       {/* Initial big play button */}
-      {!hasStarted && (
+{/*      {!hasStarted && (
         <button
           onClick={togglePlay}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[12%] h-[21%] rounded-full bg-[#13333E] hover:bg-[#254c5c] active:bg-[#254c5c] border-none cursor-pointer flex items-center justify-center hover:scale-110 active:scale-95"
@@ -347,7 +347,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
             <polygon points="8,5 19,12 8,19" />
           </svg>
         </button>
-      )}
+      )}*/}
 
       {/* "Tap to play with sound" overlay (iOS, after the unmuted attempt was blocked) */}
       {hasStarted && needsSoundTap && (
