@@ -181,7 +181,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
           if (!paused) { stopPlayRetry(); return }
           p.play().catch(() => {})
         }).catch(() => stopPlayRetry())
-      }, 250)
+      },800)
     }
     resetHideTimer()
   }
