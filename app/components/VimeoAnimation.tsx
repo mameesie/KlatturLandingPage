@@ -44,6 +44,12 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
   const isDraggingRef = useRef(false)
   const playRetryTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const userPausedRef = useRef(false)
+  // iOS: unmuted playback without a live gesture gets force-paused.
+  // We attempt the optimistic unmute only ONCE, and if iOS pauses in
+  // response, we recover by replaying muted + surfacing the unmute button.
+  const triedUnmuteRef = useRef(false)
+  const recoveringRef = useRef(false)
+  const playingAtRef = useRef(0)
 
   useEffect(() => {
     const onChange = () => {
@@ -121,12 +127,36 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
       player.on('playing', () => {
         log('evt: playing')
         stopPlayRetry()
-        player.setMuted(false).catch(() => {})
+        playingAtRef.current = Date.now()
+        // One-shot optimistic unmute. On desktop/Android it sticks.
+        // On iOS it may trigger a pause, handled in the pause handler below.
+        if (!triedUnmuteRef.current) {
+          triedUnmuteRef.current = true
+          player.setMuted(false).catch(() => {})
+        }
         syncMutedState(player)
       })
       player.on('pause', () => {
         log('evt: pause')
         setIsPlaying(false)
+        const sincePlaying = Date.now() - playingAtRef.current
+        // An involuntary pause right after playback started = iOS blocking
+        // unmuted audio. Recover: replay muted and show the "tap for sound" button.
+        if (!userPausedRef.current && !recoveringRef.current && sincePlaying < 1500) {
+          recoveringRef.current = true
+          log('auto-recover: replay muted')
+          player.setMuted(true)
+            .then(() => player.play())
+            .then(() => {
+              log('recover: playing muted')
+              setNeedsUnmute(true)
+              recoveringRef.current = false
+            })
+            .catch((e: Error) => {
+              log(`recover rej ${e.name}`)
+              recoveringRef.current = false
+            })
+        }
       })
       player.on('bufferstart', () => log('evt: bufferstart'))
       player.on('bufferend', () => log('evt: bufferend'))
@@ -167,7 +197,8 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
     } else {
       log('togglePlay -> play')
       userPausedRef.current = false
-      p.setMuted(false).catch(() => {})
+      // Do NOT unmute here — the one-shot unmute in the 'playing' handler is
+      // the single attempt point, with iOS recovery wired to the pause event.
       p.play()
         .then(() => log('play() resolved'))
         .catch((e: Error) => log(`play() rej ${e.name}`))
