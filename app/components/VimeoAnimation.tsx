@@ -87,6 +87,10 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
 
     const initPlayer = () => {
       const player = new Player(iframe)
+      player.on('bufferstart', () => console.log('[vimeo] bufferstart'))
+      player.on('bufferend',   () => console.log('[vimeo] bufferend'))
+      player.on('playing',     () => console.log('[vimeo] playing'))
+      player.on('error', (e) => console.log('[vimeo] error', e))
       playerRef.current = player
 
       player.ready().then(() => {
@@ -128,19 +132,26 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
   // Do NOT await anything before play() — awaiting other promises first can
   // invalidate the user-gesture token on mobile browsers, causing muted/blocked playback.
   // Call setMuted(false) within the same gesture to ensure audio plays on mobile.
-  const togglePlay = () => {
-    const p = playerRef.current
-    if (!p) return
-    if (isPlaying) {
-      p.pause().catch(() => {})
-    } else {
-      // setVolume() is a no-op on iOS (volume is hardware-controlled),
-      // but setMuted(false) works and is the correct way to unmute inline video.
-      p.setMuted(false).catch(() => {})
-      p.play().catch(() => {})
+const togglePlay = () => {
+  const p = playerRef.current
+  if (!p) return
+  if (isPlaying) {
+    p.pause().catch(() => {})
+  } else {
+    p.setMuted(false).catch(() => {})
+      p.play()
+      .then(() => console.log('[vimeo] play() resolved'))
+      .catch((err: Error) => console.log('[vimeo] play() rejected:', err.name, err.message))
+    const retry = () => {
+      p.off('bufferend', retry)
+      p.getPaused().then((paused) => {
+        if (paused) p.play().catch(() => {})
+      }).catch(() => {})
     }
-    resetHideTimer()
+    p.on('bufferend', retry)
   }
+  resetHideTimer()
+}
 
   const seekToPosition = async (clientX: number) => {
     if (!playerRef.current || !progressBarRef.current) return
