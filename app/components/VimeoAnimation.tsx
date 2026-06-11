@@ -121,9 +121,22 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
         log('evt: playing')
         stopPlayRetry()
         playingAtRef.current = Date.now()
-        // We're actually playing now — hide the overlay if it was up.
-        setNeedsSoundTap(false)
-        player.getMuted().then((m) => log(`getMuted -> ${m}`)).catch(() => {})
+        player.getMuted().then((muted) => {
+          log(`getMuted -> ${muted}`)
+          if (muted) {
+            // iOS kept playback muted despite our unmute request (it doesn't
+            // always force-pause; sometimes it just stays muted). Pause and
+            // show the overlay so a fresh tap can resume WITH sound from the
+            // now-buffered opening.
+            log('muted playback -> pause + show overlay')
+            userPausedRef.current = true
+            player.pause().catch(() => {})
+            setNeedsSoundTap(true)
+          } else {
+            // Real sound is playing — make sure the overlay is hidden.
+            setNeedsSoundTap(false)
+          }
+        }).catch(() => {})
       })
       player.on('pause', () => {
         log('evt: pause')
