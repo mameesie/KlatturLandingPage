@@ -140,7 +140,10 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
       })
       player.on('pause', () => {
         log('evt: pause')
-        handleTapToPlay()
+        if(hasStarted && needsSoundTap) {
+          handleTapToPlay()
+        }
+          
         setIsPlaying(false)
         const sincePlaying = Date.now() - playingAtRef.current
         // An involuntary pause right after playback started = iOS blocking
@@ -317,11 +320,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
         className="absolute top-0 left-0 w-full h-full"
       />
 
-      {/* ---- DEBUG OVERLAY (remove once confirmed) ---- */}
-      <div className="absolute top-2 left-2 z-50 max-w-[80%] bg-black/75 text-green-400 text-[10px] leading-tight font-mono p-2 rounded pointer-events-none whitespace-pre-wrap">
-        {debugLog.length === 0 ? 'waiting...' : debugLog.join('\n')}
-      </div>
-      {/* ----------------------------------------------- */}
+
 
       {/* Click layer to toggle play while playing (sits below the sound overlay) */}
       {hasStarted && !needsSoundTap && (
