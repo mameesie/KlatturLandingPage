@@ -138,7 +138,7 @@ const togglePlay = () => {
   if (isPlaying) {
     p.pause().catch(() => {})
   } else {
-    p.setMuted(false).catch(() => {})
+    // p.setMuted(false).catch(() => {})
       p.play()
       .then(() => console.log('[vimeo] play() resolved'))
       .catch((err: Error) => console.log('[vimeo] play() rejected:', err.name, err.message))
