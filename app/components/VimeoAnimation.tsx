@@ -140,11 +140,10 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
       })
       player.on('pause', () => {
         log('evt: pause')
-        if(firsTime) {
+        
           handleTapToPlay()
-          setFirstTime(false)
-          return
-      }
+          
+      
 
         
         setIsPlaying(false)
