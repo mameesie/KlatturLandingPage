@@ -7,8 +7,6 @@ type VimeoAnimationProps = {
   ln: string
 }
 
-// Safari exposes fullscreen under webkit-prefixed names not in the standard TS lib.
-// Declaring them here avoids `any` while keeping the code self-contained.
 interface WebkitDocument extends Document {
   webkitFullscreenElement: Element | null
   webkitExitFullscreen: () => Promise<void>
@@ -19,8 +17,6 @@ interface WebkitHTMLElement extends HTMLDivElement {
 }
 
 export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
-const userPausedRef = useRef(false)
-
   const iframeRef = useRef<HTMLIFrameElement | null>(null)
   const playerRef = useRef<Player | null>(null)
   const progressBarFillRef = useRef<HTMLDivElement | null>(null)
@@ -32,25 +28,27 @@ const userPausedRef = useRef(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [showControls, setShowControls] = useState(false)
   const [iframeKey, setIframeKey] = useState(0)
-  // iOS: retried play() (no user gesture) is only allowed muted.
-  // When that happens we show a "tap for sound" button — a real tap
-  // is a fresh gesture, and gesture-driven unmute always works.
   const [needsUnmute, setNeedsUnmute] = useState(false)
+
+  // ---- DEBUG ----
+  const [debugLog, setDebugLog] = useState<string[]>([])
+  const log = (msg: string) => {
+    const t = new Date().toISOString().substr(14, 9) // mm:ss.mmm
+    setDebugLog((l) => [...l.slice(-11), `${t} ${msg}`])
+  }
+  // ---------------
 
   const durationRef = useRef(0)
   const hideTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const progressBarRef = useRef<HTMLDivElement | null>(null)
   const isDraggingRef = useRef(false)
   const playRetryTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const userPausedRef = useRef(false)
 
-  // Listen for both standard and webkit-prefixed fullscreen changes,
-  // and also handle the Vimeo player's own fullscreen event (iPhone fallback)
   useEffect(() => {
     const onChange = () => {
       const doc = document as WebkitDocument
-      setIsFullscreen(
-        !!(document.fullscreenElement || doc.webkitFullscreenElement)
-      )
+      setIsFullscreen(!!(document.fullscreenElement || doc.webkitFullscreenElement))
     }
     document.addEventListener('fullscreenchange', onChange)
     document.addEventListener('webkitfullscreenchange', onChange)
@@ -67,9 +65,7 @@ const userPausedRef = useRef(false)
   const resetHideTimer = () => {
     if (hideTimerRef.current) clearTimeout(hideTimerRef.current)
     setShowControls(true)
-    hideTimerRef.current = setTimeout(() => {
-      setShowControls(false)
-    }, 3000)
+    hideTimerRef.current = setTimeout(() => setShowControls(false), 3000)
   }
 
   useEffect(() => {
@@ -91,12 +87,10 @@ const userPausedRef = useRef(false)
     }
   }
 
-  // Check whether the player is actually muted and show/hide the
-  // "tap for sound" button accordingly.
   const syncMutedState = (p: Player) => {
     p.getMuted()
-      .then((muted) => setNeedsUnmute(muted))
-      .catch(() => {})
+      .then((muted) => { log(`getMuted -> ${muted}`); setNeedsUnmute(muted) })
+      .catch((e) => log(`getMuted err ${e?.name}`))
   }
 
   useEffect(() => {
@@ -108,29 +102,37 @@ const userPausedRef = useRef(false)
     const iframe = iframeRef.current
 
     const initPlayer = () => {
+      log('iframe loaded, init player')
       const player = new Player(iframe)
       playerRef.current = player
 
-      player.ready().then(() => {
-        player.getDuration().then((d) => {
-          durationRef.current = d
+      player.ready()
+        .then(() => {
+          log('player ready')
+          player.getDuration().then((d) => { durationRef.current = d })
         })
-      }).catch(() => {})
+        .catch((e) => log(`ready err ${e?.name}`))
 
       player.on('play', () => {
+        log('evt: play')
         setHasStarted(true)
         setIsPlaying(true)
       })
       player.on('playing', () => {
+        log('evt: playing')
         stopPlayRetry()
-        // Optimistic unmute: on some iOS versions this works because the
-        // original tap primed the element. Then verify what actually happened.
         player.setMuted(false).catch(() => {})
         syncMutedState(player)
       })
       player.on('pause', () => {
+        log('evt: pause')
         setIsPlaying(false)
       })
+      player.on('bufferstart', () => log('evt: bufferstart'))
+      player.on('bufferend', () => log('evt: bufferend'))
+      player.on('error', (e: { name?: string; message?: string }) =>
+        log(`evt: ERROR ${e?.name} ${e?.message ?? ''}`)
+      )
       player.on('timeupdate', (data) => {
         if (progressBarFillRef.current) {
           progressBarFillRef.current.style.width = `${data.percent * 100}%`
@@ -139,9 +141,6 @@ const userPausedRef = useRef(false)
           timestampRef.current.textContent = formatTime(data.seconds)
         }
       })
-
-      // Keep isFullscreen in sync when using the Vimeo player's
-      // own fullscreen API (iPhone Safari fallback)
       player.on('fullscreenchange', (data: { fullscreen: boolean }) => {
         setIsFullscreen(data.fullscreen)
       })
@@ -157,41 +156,49 @@ const userPausedRef = useRef(false)
     }
   }, [iframeKey])
 
-  // Do NOT await anything before play() — awaiting other promises first can
-  // invalidate the user-gesture token on mobile browsers, causing muted/blocked playback.
-const togglePlay = () => {
-  const p = playerRef.current
-  if (!p) return
-  if (isPlaying) {
-    userPausedRef.current = true
-    stopPlayRetry()
-    p.pause().catch(() => {})
-  } else {
-    userPausedRef.current = false
-    p.setMuted(false).catch(() => {})
-    p.play().catch(() => {})
+  const togglePlay = () => {
+    const p = playerRef.current
+    if (!p) { log('togglePlay: no player'); return }
+    if (isPlaying) {
+      log('togglePlay -> pause (user)')
+      userPausedRef.current = true
+      stopPlayRetry()
+      p.pause().catch((e) => log(`pause() rej ${e?.name}`))
+    } else {
+      log('togglePlay -> play')
+      userPausedRef.current = false
+      p.setMuted(false).catch(() => {})
+      p.play()
+        .then(() => log('play() resolved'))
+        .catch((e: Error) => log(`play() rej ${e.name}`))
 
-    stopPlayRetry()
-    let attempts = 0
-    playRetryTimerRef.current = setInterval(() => {
-      attempts += 1
-      if (attempts > 12 || userPausedRef.current) { stopPlayRetry(); return }
-      p.getPaused().then((paused) => {
-        if (!paused) { stopPlayRetry(); return }
-        p.play().catch(() => {})
-      }).catch(() => stopPlayRetry())
-    }, 800)
+      stopPlayRetry()
+      let attempts = 0
+      playRetryTimerRef.current = setInterval(() => {
+        attempts += 1
+        if (attempts > 12 || userPausedRef.current) {
+          log(`retry stop (attempts=${attempts}, userPaused=${userPausedRef.current})`)
+          stopPlayRetry()
+          return
+        }
+        p.getPaused()
+          .then((paused) => {
+            log(`retry ${attempts}: paused=${paused}`)
+            if (!paused) { stopPlayRetry(); return }
+            p.play()
+              .then(() => log(`retry ${attempts}: play() resolved`))
+              .catch((e: Error) => log(`retry ${attempts}: play() rej ${e.name}`))
+          })
+          .catch((e) => { log(`retry ${attempts}: getPaused rej ${e?.name}`); stopPlayRetry() })
+      }, 800)
+    }
+    resetHideTimer()
   }
-  resetHideTimer()
-}
 
   const handleUnmute = () => {
     const p = playerRef.current
     if (!p) return
-    // This runs inside a real tap — gesture-driven unmute is always allowed.
-    p.setMuted(false)
-      .then(() => syncMutedState(p))
-      .catch(() => syncMutedState(p))
+    p.setMuted(false).then(() => syncMutedState(p)).catch(() => syncMutedState(p))
     resetHideTimer()
   }
 
@@ -209,10 +216,7 @@ const togglePlay = () => {
   const handleSeekMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     isDraggingRef.current = true
     seekToPosition(e.clientX)
-
-    const onMouseMove = (e: MouseEvent) => {
-      if (isDraggingRef.current) seekToPosition(e.clientX)
-    }
+    const onMouseMove = (e: MouseEvent) => { if (isDraggingRef.current) seekToPosition(e.clientX) }
     const onMouseUp = () => {
       isDraggingRef.current = false
       window.removeEventListener('mousemove', onMouseMove)
@@ -225,10 +229,7 @@ const togglePlay = () => {
   const handleSeekTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     isDraggingRef.current = true
     seekToPosition(e.touches[0].clientX)
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (isDraggingRef.current) seekToPosition(e.touches[0].clientX)
-    }
+    const onTouchMove = (e: TouchEvent) => { if (isDraggingRef.current) seekToPosition(e.touches[0].clientX) }
     const onTouchEnd = () => {
       isDraggingRef.current = false
       window.removeEventListener('touchmove', onTouchMove)
@@ -241,13 +242,9 @@ const togglePlay = () => {
   const handleFullscreen = async () => {
     const el = containerRef.current
     if (!el) return
-
     const doc = document as WebkitDocument
     const elWebkit = el as WebkitHTMLElement
-
-    // Standard + webkit-prefixed element fullscreen (desktop, Chrome Android, iPad Safari)
     const canRequestNative = !!(el.requestFullscreen || elWebkit.webkitRequestFullscreen)
-
     if (canRequestNative) {
       if (isFullscreen) {
         const exit = document.exitFullscreen ?? doc.webkitExitFullscreen
@@ -257,10 +254,6 @@ const togglePlay = () => {
         enter?.call(el)
       }
     } else {
-      // iPhone Safari: Element.requestFullscreen is not implemented.
-      // Fall back to the Vimeo player's own fullscreen API, which triggers
-      // the native video fullscreen on iPhone. Note: custom controls won't
-      // show in this native fullscreen — that's an iOS platform limitation.
       try {
         const currentlyFullscreen = await playerRef.current?.getFullscreen()
         if (currentlyFullscreen) {
@@ -268,15 +261,10 @@ const togglePlay = () => {
         } else {
           await playerRef.current?.requestFullscreen()
         }
-      } catch {
-        // getFullscreen / requestFullscreen may not be available on all Vimeo
-        // plan types — silently ignore if so.
-      }
+      } catch {}
     }
   }
 
-  // Safely append controls=0 and playsinline=1 regardless of whether ln
-  // already contains a query string (e.g. Vimeo unlisted links include ?h=<hash>)
   const src = `${ln}${ln.includes('?') ? '&' : '?'}controls=0&playsinline=1`
 
   return (
@@ -301,6 +289,12 @@ const togglePlay = () => {
         referrerPolicy="strict-origin-when-cross-origin"
         className="absolute top-0 left-0 w-full h-full"
       />
+
+      {/* ---- DEBUG OVERLAY ---- */}
+      <div className="absolute top-2 left-2 z-50 max-w-[80%] bg-black/75 text-green-400 text-[10px] leading-tight font-mono p-2 rounded pointer-events-none whitespace-pre-wrap">
+        {debugLog.length === 0 ? 'waiting...' : debugLog.join('\n')}
+      </div>
+      {/* ----------------------- */}
 
       {hasStarted && (
         <div
