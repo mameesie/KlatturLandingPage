@@ -140,7 +140,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
       })
       player.on('pause', () => {
         log('evt: pause')
-        togglePlay()
+        handleTapToPlay()
         setIsPlaying(false)
         const sincePlaying = Date.now() - playingAtRef.current
         // An involuntary pause right after playback started = iOS blocking
