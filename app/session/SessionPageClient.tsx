@@ -420,19 +420,19 @@ function togglePlayPause() {
               disabled={stepHistory.current.length === 0}
               className={`${!canGoBack && "hidden"} " cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular flex items-center justify-center mt-[20px] mr-[40px] p-[16px] rounded-[2000px] w-[60px] h-[60px] hover:scale-105 active:scale-100"`}
             >
-              <ArrowBack />
-            </button>
+              <ArrowBack className="w-full h-full"/>
+            </button >
             <button
               onClick={togglePlayPause}
               className="cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular flex items-center justify-center mt-[20px] mr-[40px] p-[20px] rounded-[2000px] w-[60px] h-[60px] scale-130 hover:scale-135 active:scale-130"
               >
-              {isPlaying ? <PauseArrow /> : <PlayArrow />}
+              {isPlaying ? <PauseArrow className="w-full h-full" /> : <PlayArrow  className="w-full h-full" />}
             </button>
             <button
               onClick={() => playStep(currentStep)}
               className="cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular flex items-center justify-center mt-[20px] rounded-[2000px] w-[60px] h-[60px] hover:scale-105 active:scale-100"
             >
-              <Rewind />
+              <Rewind className="w-full h-full" />
             </button>
           </div>
         )}
