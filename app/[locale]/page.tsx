@@ -47,7 +47,7 @@ async function  MainPage() {
       <div className="flex justify-center">
         <Link
           href="/start"
-          className="bg-[#9ACC8F] hover:bg-[#aad2a2] font-no-name-regular text-[#56710C] flex items-center justify-center rounded-[2000px] w-[50vw] min-w-[200px] max-w-[280px] h-[12.5vw] min-h-[50px] max-h-[75px]  text-[min(max(4vw,16px),24px)]  my-[max(7.7vw,31px)] vimeo:my-[57px] hover:scale-105 active:scale-100"
+          className="bg-[#9ACC8F] hover:bg-[#aad2a2] active:bg-[#aad2a2] font-no-name-regular text-[#56710C] flex items-center justify-center rounded-[2000px] w-[50vw] min-w-[200px] max-w-[280px] h-[12.5vw] min-h-[50px] max-h-[75px]  text-[min(max(4vw,16px),24px)]  my-[max(7.7vw,31px)] vimeo:my-[57px] hover:scale-105 active:scale-95"
         >
           {t('button1')}
         </Link>
@@ -131,7 +131,7 @@ async function  MainPage() {
         </div>
         <div className="flex justify-center ">
           <Link
-            className="flex justify-center items-center bg-[#13333E] rounded-[2000px] w-[160px] h-[50px] mt-[25px] mb-[60px] text-white font-no-name-regular cursor-pointer hover:scale-105 hover:bg-[#254D5D] active:scale-100"
+            className="flex justify-center items-center bg-[#13333E] rounded-[2000px] w-[160px] h-[50px] mt-[25px] mb-[60px] text-white font-no-name-regular cursor-pointer hover:scale-105 hover:bg-[#254D5D] active:scale-95 active:bg-[#254D5D]"
             href="/start"
           >
             {t('button2')}

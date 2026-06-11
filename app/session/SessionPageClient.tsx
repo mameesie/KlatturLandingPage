@@ -418,19 +418,19 @@ function togglePlayPause() {
             <button
               onClick={goBack}
               disabled={stepHistory.current.length === 0}
-              className={`${!canGoBack && "hidden"} " cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular flex items-center justify-center mt-[20px] mr-[40px] p-[16px] rounded-[2000px] w-[60px] h-[60px] hover:scale-105 active:scale-100"`}
+              className={`${!canGoBack && "hidden"} " cursor-pointer bg-[#13333E] hover:bg-[#254D5D] active:bg-[#254D5D]  font-no-name-regular flex items-center justify-center mt-[20px] mr-[40px] p-[16px] rounded-[2000px] w-[60px] h-[60px] hover:scale-105 active:scale-95"`}
             >
               <ArrowBack className="w-full h-full"/>
             </button >
             <button
               onClick={togglePlayPause}
-              className="cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular flex items-center justify-center mt-[20px] mr-[40px] p-[20px] rounded-[2000px] w-[60px] h-[60px] scale-130 hover:scale-135 active:scale-130"
+              className="cursor-pointer bg-[#13333E] hover:bg-[#254D5D] active:bg-[#254D5D]  font-no-name-regular flex items-center justify-center mt-[20px] mr-[40px] p-[20px] rounded-[2000px] w-[60px] h-[60px] scale-130 hover:scale-135 active:scale-125"
               >
               {isPlaying ? <PauseArrow className="w-full h-full" /> : <PlayArrow  className="w-full h-full" />}
             </button>
             <button
               onClick={() => playStep(currentStep)}
-              className="cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular flex items-center justify-center mt-[20px] rounded-[2000px] w-[60px] h-[60px] hover:scale-105 active:scale-100"
+              className="cursor-pointer bg-[#13333E] hover:bg-[#254D5D] active:bg-[#254D5D] font-no-name-regular flex items-center justify-center mt-[20px] rounded-[2000px] w-[60px] h-[60px] hover:scale-105 active:scale-95"
             >
               <Rewind className="w-full h-full" />
             </button>
@@ -445,7 +445,7 @@ const T = 6; // border thickness — bump this to make the rotating border wider
 
 return (
   <div
-    className={`relative cursor-pointer bg-[#13333E] hover:bg-[#254D5D] font-no-name-regular text-[19px] text-white flex items-center justify-center ${isFirst ? "mt-[40px]" : "mt-[20px]"} rounded-[2000px] ${currentStep === "whatIsOnYourMind" && isLast && "mb-[80px]"}  ${currentStep === "whatIsOnYourMind" ? "w-[280px]" : "w-[180px]"} h-[60px] ${audioDone && "animate-breathe"} hover:scale-105 active:scale-100 `}
+    className={`relative cursor-pointer bg-[#13333E] hover:bg-[#254D5D] active:bg-[#254D5D]  font-no-name-regular text-[19px] text-white flex items-center justify-center ${isFirst ? "mt-[40px]" : "mt-[20px]"} rounded-[2000px] ${currentStep === "whatIsOnYourMind" && isLast && "mb-[80px]"}  ${currentStep === "whatIsOnYourMind" ? "w-[280px]" : "w-[180px]"} h-[60px] ${audioDone && "animate-breathe"} hover:scale-105 active:scale-95 `}
     key={index}
   >
     {/*de knop border animatie toch weggelaten*/}
