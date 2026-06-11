@@ -3,12 +3,20 @@
 import { useEffect, useRef, useState } from 'react'
 import Player from '@vimeo/player'
 
-
 type VimeoAnimationProps = {
-  ln: string;
-};
+  ln: string
+}
 
+// Safari exposes fullscreen under webkit-prefixed names not in the standard TS lib.
+// Declaring them here avoids `any` while keeping the code self-contained.
+interface WebkitDocument extends Document {
+  webkitFullscreenElement: Element | null
+  webkitExitFullscreen: () => Promise<void>
+}
 
+interface WebkitHTMLElement extends HTMLDivElement {
+  webkitRequestFullscreen: () => Promise<void>
+}
 
 export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
   const iframeRef = useRef<HTMLIFrameElement | null>(null)
@@ -28,12 +36,21 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
   const progressBarRef = useRef<HTMLDivElement | null>(null)
   const isDraggingRef = useRef(false)
 
+  // Listen for both standard and webkit-prefixed fullscreen changes,
+  // and also handle the Vimeo player's own fullscreen event (iPhone fallback)
   useEffect(() => {
-    const onFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement)
+    const onChange = () => {
+      const doc = document as WebkitDocument
+      setIsFullscreen(
+        !!(document.fullscreenElement || doc.webkitFullscreenElement)
+      )
     }
-    document.addEventListener('fullscreenchange', onFullscreenChange)
-    return () => document.removeEventListener('fullscreenchange', onFullscreenChange)
+    document.addEventListener('fullscreenchange', onChange)
+    document.addEventListener('webkitfullscreenchange', onChange)
+    return () => {
+      document.removeEventListener('fullscreenchange', onChange)
+      document.removeEventListener('webkitfullscreenchange', onChange)
+    }
   }, [])
 
   useEffect(() => {
@@ -91,6 +108,12 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
           timestampRef.current.textContent = formatTime(data.seconds)
         }
       })
+
+      // Keep isFullscreen in sync when using the Vimeo player's
+      // own fullscreen API (iPhone Safari fallback)
+      player.on('fullscreenchange', (data: { fullscreen: boolean }) => {
+        setIsFullscreen(data.fullscreen)
+      })
     }
 
     iframe.addEventListener('load', initPlayer, { once: true })
@@ -102,12 +125,19 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
     }
   }, [iframeKey])
 
-  const togglePlay = async () => {
-    if (!playerRef.current) return
+  // Do NOT await anything before play() — awaiting other promises first can
+  // invalidate the user-gesture token on mobile browsers, causing muted/blocked playback.
+  // Call setMuted(false) within the same gesture to ensure audio plays on mobile.
+  const togglePlay = () => {
+    const p = playerRef.current
+    if (!p) return
     if (isPlaying) {
-      await playerRef.current.pause()
+      p.pause().catch(() => {})
     } else {
-      await playerRef.current.play()
+      // setVolume() is a no-op on iOS (volume is hardware-controlled),
+      // but setMuted(false) works and is the correct way to unmute inline video.
+      p.setMuted(false).catch(() => {})
+      p.play().catch(() => {})
     }
     resetHideTimer()
   }
@@ -155,13 +185,46 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
     window.addEventListener('touchend', onTouchEnd)
   }
 
-  const handleFullscreen = () => {
-    if (isFullscreen) {
-      document.exitFullscreen()
+  const handleFullscreen = async () => {
+    const el = containerRef.current
+    if (!el) return
+
+    const doc = document as WebkitDocument
+    const elWebkit = el as WebkitHTMLElement
+
+    // Standard + webkit-prefixed element fullscreen (desktop, Chrome Android, iPad Safari)
+    const canRequestNative = !!(el.requestFullscreen || elWebkit.webkitRequestFullscreen)
+
+    if (canRequestNative) {
+      if (isFullscreen) {
+        const exit = document.exitFullscreen ?? doc.webkitExitFullscreen
+        exit?.call(document)
+      } else {
+        const enter = el.requestFullscreen ?? elWebkit.webkitRequestFullscreen
+        enter?.call(el)
+      }
     } else {
-      containerRef.current?.requestFullscreen()
+      // iPhone Safari: Element.requestFullscreen is not implemented.
+      // Fall back to the Vimeo player's own fullscreen API, which triggers
+      // the native video fullscreen on iPhone. Note: custom controls won't
+      // show in this native fullscreen — that's an iOS platform limitation.
+      try {
+        const currentlyFullscreen = await playerRef.current?.getFullscreen()
+        if (currentlyFullscreen) {
+          await playerRef.current?.exitFullscreen()
+        } else {
+          await playerRef.current?.requestFullscreen()
+        }
+      } catch {
+        // getFullscreen / requestFullscreen may not be available on all Vimeo
+        // plan types — silently ignore if so.
+      }
     }
   }
+
+  // Safely append controls=0 and playsinline=1 regardless of whether ln
+  // already contains a query string (e.g. Vimeo unlisted links include ?h=<hash>)
+  const src = `${ln}${ln.includes('?') ? '&' : '?'}controls=0&playsinline=1`
 
   return (
     <div
@@ -179,7 +242,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
       <iframe
         key={iframeKey}
         ref={iframeRef}
-        src= {`${ln}?controls=0`}
+        src={src}
         title="Klattur introduction video"
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         referrerPolicy="strict-origin-when-cross-origin"
@@ -197,7 +260,7 @@ export default function VimeoAnimation({ ln }: VimeoAnimationProps) {
       {!hasStarted && (
         <button
           onClick={togglePlay}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[12%] h-[21%] rounded-full  bg-[#13333E] hover:bg-[#254c5c] border-none cursor-pointer flex items-center justify-center hover:scale-110 active:scale-100"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[12%] h-[21%] rounded-full bg-[#13333E] hover:bg-[#254c5c] border-none cursor-pointer flex items-center justify-center hover:scale-110 active:scale-100"
         >
           <svg viewBox="0 0 24 24" fill="white" width="48%">
             <polygon points="8,5 19,12 8,19" />
